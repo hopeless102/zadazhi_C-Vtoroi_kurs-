@@ -3,15 +3,15 @@ using namespace std;
 
 int main()
 {
-//Главная героиня, Аня, — молодая женщина, которая борется с шизофренией. 
+//Главная героиня, Аня, — молодая девушка, которая борется с шизофренией. 
 //После смерти любимой бабушки её состояние обостряется: в её голове начинают появляться новые голоса, а старые видения становятся всё более реальными.
 //В ходе сюжета Аня сталкивается с различными выборами,которые влияют на её восприятие реальности и ведут к разным последствиям 
 	int a,b,c;
-	cout << "The main character, Anya, is a young woman who struggles with schizophrenia. \n ";
-	cout << "After the death of her beloved grandmother, her condition worsens: new voices begin to appear in her head, and old visions become more and more real.\n";
-	cout << "During the course of the story, Anya faces various choices that affect her perception of reality and lead to different consequences \n";
+	cout << "\nThe main character, Anya, is a young woman who struggles with schizophrenia. \n ";
+	cout << "\nAfter the death of her beloved grandmother, her condition worsens: new voices begin to appear in her head, and old visions become more and more real.\n";
+	cout << "\nDuring the course of the story, Anya faces various choices that affect her perception of reality and lead to different consequences \n";
 	//На одном из первых выборов Аня оказывается перед решением: Обратиться к психотерапевту за помощью или Постараться справиться с проблемами самостоятельно
-	cout << "\n In one of the first choices, Anya faces a decision: Contact a psychotherapist for help(1) or Try to cope with the problems on her own(2)";
+	cout << "\n In one of the first choices, Anya faces a decision: Contact a psychotherapist for help(1) or Try to cope with the problems on her own(2)\n";
 	cin >> a;
 
 	if (a == 1)
@@ -20,9 +20,10 @@ int main()
 		cout << "\n She makes an appointment with a doctor and receives support to help her better understand her condition, but each visit also raises new questions about her hallucinations...\n";
 		// Аня принимает себя, свои страхи и обретает гармонию с реальностью, перестав зависеть от галлюцинаций 
 		cout << "\nAnya accepts herself, her fears and finds harmony with reality, ceasing to depend on hallucinations\n";
-		cout << "\nGood end?    \n";
+		cout << "\nGood end?    \n"; 
+		return 0;
 	}
-	else;
+	else
 	{
 		//Аня начинает использовать методы самопомощи и медитации, что изначально приносит облегчение, 
 		 //но вскоре приводит к ещё более глубоким фантазиям и изоляции от реальности также она начала видеть странного парня - Влада.  
@@ -33,21 +34,45 @@ int main()
 	// Сблизиться с Владом, доверяя ему или Держаться на расстоянии, опасаясь его влияния
 
 	
-	 cout << "\nThe second fork occurs after meeting Vlad, a mysterious guy who shares one of his realities with her \n";
-	 cout << "\nGet closer to Vlad, trusting him (1) or Keep your distance, fearing his influence(1)\n";
-	 if (b == 1)
+	 cout << "\n The second fork occurs after meeting Vlad, a mysterious guy who shares one of his realities with her \n";
+	 cout << "\n Get closer to Vlad, trusting him (1) or Keep your distance, fearing his influence(2)\n";
+	 cin >> b;
+	if (b == 1)
 	 {//Аня открывает свою душу, и Влад кажется ей опорой, 
 		 //однако начинает замечать, что его присутствие все больше затягивает её в свои галлюцинации и эмоциональные мракобесия
 		 cout << "\nAnya opens her soul, and Vlad seems to be her support, but she begins to notice that his presence is drawing her more and more into his hallucinations and emotional obscurantism.\n";
 		 //Она навсегда остается запертой в мире своих видений, чувствуя себя одинокой и беззащитной, с Владом, который теперь стал её постоянным компаньоном
 		 cout << "\nShe remains forever locked in the world of her visions, feeling lonely and defenseless, with Vlad, who has now become her constant companion.\n";
 		 cout << "\n Bad End... \n";
-
-
+		 return 0;
 	 }
-		 
-	
-	
+	else
+	{//Она сохраняет холодное расстояние и старается справиться с состоянием без его вмешательства, что ведет к внутреннему конфликту и истощению, 
+	 //но помогает ей не потеряться окончательно.
+		cout << "\nShe maintains a cold distance and tries to cope with the condition without his intervention, which leads to internal conflict and exhaustion, but helps her not to get completely lost.\n";
+	}
+	//После ряда событий Аня сталкивается с глубокой зависимостью от своих галлюцинаций и оказывается перед решением:
+	cout << "\nAfter a series of events, Anya is faced with a deep dependence on her hallucinations and faces a decision:\n";
+	//Принять галлюцинации как часть себя или Сражаться с ними, пытаясь освободиться 
+	cout << "\nAccept the hallucinations as part of yourself(1) or Fight them in an attempt to free yourself(2)\n";
+	cin >> c;
+	if (c == 1)
+	{ //Она начинает получать откровения от глаз, что открывает её для новых исследований своего разума. Это вызывает в ней как облегчение, так и страдание, 
+	  //так как с этим выбором она сталкивается с ещё более темными аспектами своего сознания
+		cout << "\n She begins to receive revelations from the eyes, which opens her up to new explorations of her mind. This causes her both relief and suffering, as with this choice she is faced with even darker aspects of her consciousness.\n";
+		//она навеки обречена скитаться по своим голлюцинациям.
+		cout << "\n she is forever doomed to wander through her hallucinations.\n";
+		cout << "\n Bad end?\n";
+		return 0;
+	}
+	else
+	{//Аня пытается бороться с тенями, разрывая себя от их влияния, что приводит к решающему внутреннему конфликту и окончательной битве, где ей нужно выбрать, 
+	 //действительно ли она освобождается от Влада или это её отражение, лишь метафорично заточенное в её разуме. 
+		cout << "\nAnya tries to fight the shadows, tearing herself away from their influence, which leads to a decisive internal conflict and the final battle where she must choose whether she is truly freed from Vlad or whether it is a reflection of her, only metaphorically imprisoned in her mind.\n";
+		cout << "\nambiguous ending\n";
+		return 0;
+	}
+
 	
 	
 return 0;
