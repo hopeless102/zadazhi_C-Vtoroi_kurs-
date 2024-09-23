@@ -1,0 +1,55 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+//Главная героиня, Аня, — молодая женщина, которая борется с шизофренией. 
+//После смерти любимой бабушки её состояние обостряется: в её голове начинают появляться новые голоса, а старые видения становятся всё более реальными.
+//В ходе сюжета Аня сталкивается с различными выборами,которые влияют на её восприятие реальности и ведут к разным последствиям 
+	int a,b,c;
+	cout << "The main character, Anya, is a young woman who struggles with schizophrenia. \n ";
+	cout << "After the death of her beloved grandmother, her condition worsens: new voices begin to appear in her head, and old visions become more and more real.\n";
+	cout << "During the course of the story, Anya faces various choices that affect her perception of reality and lead to different consequences \n";
+	//На одном из первых выборов Аня оказывается перед решением: Обратиться к психотерапевту за помощью или Постараться справиться с проблемами самостоятельно
+	cout << "\n In one of the first choices, Anya faces a decision: Contact a psychotherapist for help(1) or Try to cope with the problems on her own(2)";
+	cin >> a;
+
+	if (a == 1)
+	{	// Она записывается на приём к врачу и получает поддержку, 
+		// которая помогает ей лучше понять своё состояние, но с каждым визитом также возникают новые вопросы о своих галлюцинациях... 
+		cout << "\n She makes an appointment with a doctor and receives support to help her better understand her condition, but each visit also raises new questions about her hallucinations...\n";
+		// Аня принимает себя, свои страхи и обретает гармонию с реальностью, перестав зависеть от галлюцинаций 
+		cout << "\nAnya accepts herself, her fears and finds harmony with reality, ceasing to depend on hallucinations\n";
+		cout << "\nGood end?    \n";
+	}
+	else;
+	{
+		//Аня начинает использовать методы самопомощи и медитации, что изначально приносит облегчение, 
+		 //но вскоре приводит к ещё более глубоким фантазиям и изоляции от реальности также она начала видеть странного парня - Влада.  
+		cout << "Anya begins to use self-help and meditation methods, which initially brings relief, but soon leads to even deeper fantasies and isolation from reality she also begins to see a strange guy - Vlad.\n";
+	}
+	
+	//Вторая развилка происходит после встречи с Владом, загадочным парнем, который делит с ней одну из своих реальностей: 
+	// Сблизиться с Владом, доверяя ему или Держаться на расстоянии, опасаясь его влияния
+
+	
+	 cout << "\nThe second fork occurs after meeting Vlad, a mysterious guy who shares one of his realities with her \n";
+	 cout << "\nGet closer to Vlad, trusting him (1) or Keep your distance, fearing his influence(1)\n";
+	 if (b == 1)
+	 {//Аня открывает свою душу, и Влад кажется ей опорой, 
+		 //однако начинает замечать, что его присутствие все больше затягивает её в свои галлюцинации и эмоциональные мракобесия
+		 cout << "\nAnya opens her soul, and Vlad seems to be her support, but she begins to notice that his presence is drawing her more and more into his hallucinations and emotional obscurantism.\n";
+		 //Она навсегда остается запертой в мире своих видений, чувствуя себя одинокой и беззащитной, с Владом, который теперь стал её постоянным компаньоном
+		 cout << "\nShe remains forever locked in the world of her visions, feeling lonely and defenseless, with Vlad, who has now become her constant companion.\n";
+		 cout << "\n Bad End... \n";
+
+
+	 }
+		 
+	
+	
+	
+	
+return 0;
+}
+
