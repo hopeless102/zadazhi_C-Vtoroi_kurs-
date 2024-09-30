@@ -1,0 +1,237 @@
+import random
+import time
+
+
+def merge(left_list, right_list, inversions):
+    sorted_list = []
+    left_list_index = right_list_index = 0
+
+    # Длина списков часто используется, поэтому создадим переменные для удобства
+    left_list_length, right_list_length = len(left_list), len(right_list)
+
+    for _ in range(left_list_length + right_list_length):
+        if left_list_index < left_list_length and right_list_index < right_list_length:
+            # Сравниваем первые элементы в начале каждого списка
+            # Если первый элемент левого подсписка меньше, добавляем его
+            # в отсортированный массив
+            if left_list[left_list_index] <= right_list[right_list_index]:
+                sorted_list.append(left_list[left_list_index])
+                left_list_index += 1
+            # Если первый элемент правого подсписка меньше, добавляем его
+            # в отсортированный массив
+            else:
+                sorted_list.append(right_list[right_list_index])
+                right_list_index += 1
+                inversions += left_list_length - left_list_index  # Увеличиваем счетчик инверсий
+
+        # Если достигнут конец левого списка, элементы правого списка
+        # добавляем в конец результирующего списка
+        elif left_list_index == left_list_length:
+            sorted_list.append(right_list[right_list_index])
+            right_list_index += 1
+        # Если достигнут конец правого списка, элементы левого списка
+        # добавляем в отсортированный массив
+        elif right_list_index == right_list_length:
+            sorted_list.append(left_list[left_list_index])
+            left_list_index += 1
+
+    return sorted_list, inversions
+
+def merge_sort(nums):  
+    # Возвращаем список, если он состоит из одного элемента
+    if len(nums) <= 1:
+        return nums, 0
+
+    # Для того чтобы найти середину списка, используем деление без остатка
+    # Индексы должны быть integer
+    mid = len(nums) // 2
+
+    # Сортируем и объединяем подсписки
+    left_list, inversions_left = merge_sort(nums[:mid])
+    right_list, inversions_right = merge_sort(nums[mid:])
+
+    # Объединяем отсортированные списки в результирующий
+    sorted_list, inversions_merge = merge(left_list, right_list, 0)
+
+    return sorted_list, inversions_left + inversions_right + inversions_merge
+
+
+
+def partition(nums, low, high):  
+    # Выбираем средний элемент в качестве опорного
+    # Также возможен выбор первого, последнего
+    # или произвольного элементов в качестве опорного
+    pivot = nums[(low + high) // 2]
+    i = low - 1
+    j = high + 1
+    while True:
+        i += 1
+        while nums[i] < pivot:
+            i += 1
+
+        j -= 1
+        while nums[j] > pivot:
+            j -= 1
+
+        if i >= j:
+            return j
+
+        # Если элемент с индексом i (слева от опорного) больше, чем
+        # элемент с индексом j (справа от опорного), меняем их местами
+        nums[i], nums[j] = nums[j], nums[i]
+
+def quick_sort(nums):  
+    # Создадим вспомогательную функцию, которая вызывается рекурсивно
+    swap_count = 0  # Добавим счетчик перестановок
+    def _quick_sort(items, low, high):
+        nonlocal swap_count  # Объявим swap_count как нелокальную переменную
+        if low < high:
+            # This is the index after the pivot, where our lists are split
+            split_index = partition(items, low, high)
+            swap_count += high - low - 1  # Обновим счетчик после каждого раздела
+            _quick_sort(items, low, split_index)
+            _quick_sort(items, split_index + 1, high)
+
+    _quick_sort(nums, 0, len(nums) - 1)
+    return swap_count  # Вернем количество 
+
+def bubble_sort(nums):
+    # Устанавливаем swapped в True, чтобы цикл запустился хотя бы один раз
+    swapped = True
+    # Инициализируем счетчик перестановок
+    swap_count = 0
+    while swapped:
+        swapped = False
+        for i in range(len(nums) - 1):
+            if nums[i] > nums[i + 1]:
+                # Меняем элементы
+                nums[i], nums[i + 1] = nums[i + 1], nums[i]
+                # Устанавливаем swapped в True для следующей итерации
+                swapped = True
+                # Увеличиваем счетчик перестановок
+                swap_count += 1
+
+    # Возвращаем отсортированный список и количество перестановок
+    return nums, swap_count
+
+
+def selection_sort(nums):
+    # Значение i соответствует кол-ву отсортированных значений
+    swap_count = 0  # Добавляем счетчик перестановок
+    for i in range(len(nums)):
+        # Исходно считаем наименьшим первый элемент
+        lowest_value_index = i
+        # Этот цикл перебирает несортированные элементы
+        for j in range(i + 1, len(nums)):
+            if nums[j] < nums[lowest_value_index]:
+                lowest_value_index = j
+        # Самый маленький элемент меняем с первым в списке
+        if i != lowest_value_index:  # Проверяем, была ли перестановка
+            nums[i], nums[lowest_value_index] = nums[lowest_value_index], nums[i]
+            swap_count += 1  # Увеличиваем счетчик при перестановке
+    return swap_count  # Возвращаем количество перестановок
+
+
+def insertion_sort(nums):
+    # Счетчик перестановок
+    swaps = 0
+    # Сортировку начинаем со второго элемента, т.к. считается, что первый элемент уже отсортирован
+    for i in range(1, len(nums)):
+        item_to_insert = nums[i]
+        # Сохраняем ссылку на индекс предыдущего элемента
+        j = i - 1
+        # Элементы отсортированного сегмента перемещаем вперёд, если они больше
+        # элемента для вставки
+        while j >= 0 and nums[j] > item_to_insert:
+            nums[j + 1] = nums[j]
+            j -= 1
+            swaps += 1  # Увеличиваем счетчик перестановок
+        # Вставляем элемент
+        nums[j + 1] = item_to_insert
+    return swaps  # Возвращаем количество перестановок
+
+
+def shake_sort(arr):
+      """Сортировка шейкером."""
+      n = len(arr)
+      swapped = True
+      start = 0
+      end = n - 1
+      count = 0  # Счетчик перестановок
+      while swapped:
+        swapped = False
+        # Перемещение от начала к концу
+        for i in range(start, end):
+          if arr[i] > arr[i + 1]:
+            arr[i], arr[i + 1] = arr[i + 1], arr[i]
+            swapped = True
+            count += 1  # Увеличиваем счетчик при перестановке
+        if not swapped:
+          break
+        swapped = False
+        end -= 1
+        # Перемещение от конца к началу
+        for i in range(end - 1, start - 1, -1):
+          if arr[i] > arr[i + 1]:
+            arr[i], arr[i + 1] = arr[i + 1], arr[i]
+            swapped = True
+            count += 1  # Увеличиваем счетчик при перестановке
+        start += 1
+      return arr, count  # Возвращаем отсортированный массив и счетчик
+
+
+# Получаем данные от пользователя
+print("у нас есть 6 типов сортировки shake, merge, quick, bubble, selection, insertion")
+sort_metod = str(input("Выберите метод сортировки: "))
+sort_size = int(input("выберите количество эллементов в списке(1000,10000,1000000): "))
+start_time = time.time()
+#quick sort
+if sort_metod == "quick" and sort_size == 1000:
+    a = []
+    for i in range(1000):
+        i = random.randint(1,100)
+        a.append(i)
+    
+    swaps = quick_sort(a)
+    print(f"Отсортированный список: {a}")
+    print(f"Количество перестановок: {swaps}")
+
+elif sort_metod == "quick" and sort_size == 10000:
+    a = []
+    for i in range(10000):
+        i = random.randint(1,100)
+        a.append(i)
+    
+    swaps = quick_sort(a)
+    print(f"Отсортированный список: {a}")
+    print(f"Количество перестановок: {swaps}")
+    
+elif sort_metod == "quick" and sort_size == 100000:
+    a = []
+    for i in range(100000):
+        i = random.randint(1,100)
+        a.append(i)
+    
+    swaps = quick_sort(a)
+    print(f"Отсортированный список: {a}")
+    print(f"Количество перестановок: {swaps}")
+    
+
+# shake sort
+elif sort_metod == "shake" and sort_size == 1000:
+    a = []
+    for i in range(1000):
+        i = random.randint(1,100)
+        a.append(i)
+    sorted_array, swap_count = shake_sort(a)
+    print("Отсортированный массив:", sorted_array)
+    print("Количество перестановок:", swap_count)
+
+elif sort_metod == "shake" and sort_size == 10000:
+    a = []
+    for i in range(10000):
+        i = random.randint(1,100)
+        a.append(i)
+    sorted_array, swap_count = shake_sort(a)
+    print("Отсортированный массив:", sorted_array)
+    print("Количество перестановок:", swap_count)
