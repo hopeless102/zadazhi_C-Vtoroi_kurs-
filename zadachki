@@ -1,0 +1,108 @@
+
+//#include <iostream>
+//using namespace std; 
+
+//int main()
+//{
+                    //zadacha 38
+// float x,y,z;
+// cout << "vvedite x: ";
+// cin >> x;
+ 
+// cout << "vvedite y: ";
+// cin >> y;
+ 
+// if (x > y){
+     
+//    z = x-y;
+//    cout<< z;
+//   return 0;
+//}
+//else
+// z = y - x + 1;
+// cout << z;
+// return 0;
+
+
+                    //zadacha 57a
+//int a,f;
+//cout << "Vvedite a: ";
+//cin >> a;
+
+//if (a<2 and a>= -2)
+//{
+//    f = a*a;
+//    cout << f;
+//    return 0;
+//}
+
+
+//else
+//  f =4;
+// cout << f;
+// return 0;
+//
+
+    
+                //zadacha 59в
+//float x,y;
+//cout<< "x = ";
+//cin >> x;
+//cout << "y = ";
+//cin >> y;
+//if (x<= 1 and x>= -1 and y<=1 and y>=-1)
+//{
+//    cout << "Vse pravilno, prinadlezhit";
+//    return 0;
+//}
+
+//else
+// cout << "ne prinadlezhit";
+// return 0;
+    
+                  //zadacha 54
+
+//double x1, x2, x3, y1, y2, y3; 
+//	double x=0, y=0;          
+//	cout << "x1 =  ; y1 =  ";
+//	cin>> x1 >> y1; 
+//	cout << "x2 =  ; y2 =  ";
+//	cin>> x2 >> y2;
+//	cout << "x3 =  ; y3 =  ";
+//	cin>> x3 >> y3; 
+//	if((y2-y1)*(x3-x1)-(y3-y1)*(x2-x1)==0){    
+//		cout<<"Ne treugolnik :( ";
+//		return 0;
+//	}
+//	else{
+//		double A, B, C, O1, O2, O3;       
+//		A=(y3-y2)*(x1-x2)-(y1-y2)*(x3-x2); 
+//		B=(y1-y3)*(x2-x3)-(y2-y3)*(x1-x3); 
+//		C=(y2-y1)*(x3-x1)-(y3-y1)*(x2-x1);  
+//		O1=(y3-y2)*(x-x2)-(y-y2)*(x3-x2);
+//       O2=(y3-y1)*(x-x1)-(y-y1)*(x3-x1);
+//       O3=(y2-y1)*(x-x1)-(y-y1)*(x2-x1);    
+//		if((O1*A>=0)&&(O2*B>=0)&&(O3*C>=0)){            
+//			cout<<"Prinadlezhit";
+//			return 0;
+//		}
+//		else{
+//			cout<<"Ne Prinadlezhit";
+//			retunr 0;
+//		}
+//	return 0;
+    
+    
+    
+    
+    
+//}
+
+
+
+
+
+
+
+
+
