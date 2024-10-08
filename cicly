@@ -1,0 +1,175 @@
+#include <iostream>
+#include <ranges>
+using namespace std;
+int main()
+{
+    cout << "\n --------------------1----------------\n";
+    
+    int c,l, r=0;
+    char d;
+    cout << "kakoi simvol?";
+    cin >> d;
+    cout << "linia vertikalnaya - 1,   gorizontalnaya - 2";
+    cin >> l;
+    cout << "skolko raz?";
+    cin >> c;
+
+
+    if (l == 1)
+    {
+
+        while (r < c)
+        {
+            r++;
+            cout << "\n "<< d;
+
+
+        }
+        
+    }
+    else 
+    { 
+        while (r < c)
+        {
+            r++;
+            cout << d;
+        }
+    
+    }
+    
+    
+    cout << "\n --------------------2----------------\n";
+     int o, e=0, r=0;
+     cout << "diapazon : ";
+     cin >> o;
+     while (e < o)
+     {
+         e++;
+     }
+         if (e % 2 == 0)
+         {
+             r += e;
+
+
+             cout << "\n --------------------3----------------\n";
+
+             int d, c = 0, r = 1;
+             cout << "chislo factoriala:  ";
+             cin >> d;
+
+             if (d == 0)
+             {
+                 cout << "factorial 0 == 1";
+             }
+         }
+     
+             else
+             {
+                 while (c < d)
+                 {
+                     c++;
+                     r *= c;
+                 }
+             }
+             cout << "factorial : " << d << " raven: " << r;
+     
+
+
+             cout << "\n --------------------4----------------\n";
+
+             int q, t = 0, l;
+             cout << "shirina : ";
+             cin >> q;
+             cout << "dlina: ";
+             cin >> l;
+             if (l < q) {
+                 cout << "0 :(";
+             }
+             else {
+                 while (q <= l) {
+                     l -= q;
+                     t++;
+                 }
+             }
+             cout << "mozhet shit: " << t << " podushek ";
+
+             cout << "\n --------------------5----------------\n";
+
+             int n, c = 0, l;
+             cout << "skolko resursov: ";
+             cin >> n;
+             cout << "skolko zabiraet: ";
+             cin >> l;
+             while (n <= l) {
+                 l -= n;
+                 c++;
+             }
+
+             cout << "skolko gruzovikov: " << c;
+
+             cout << "\n --------------------6----------------\n";
+
+             int s = 0, c = 0;
+             while (c < 5)
+             {
+                 c++;
+                 s += c;
+             }
+             cout << s;
+
+
+             cout << "\n --------------------7----------------\n";
+             int a = 5;
+             char b = '*';
+             while (a < 5)
+             {
+                 cout << "*\n";
+             }
+
+             cout << "\n --------------------8----------------\n";
+
+             int n1, n2, sum = 0, c = 0;
+
+             cout << "first chislo: ";
+             cin >> n1;
+             cout << "second chislo: ";
+             cin >> n2;
+             if (n1 > n2) {
+                 swap(n1, n2);
+             }
+             int i = n1;
+             while (i <= n2) {
+                 sum += i;
+                 c++;
+                 i++;
+             }
+             cout << "summa chisel v diapazone: " << sum << endl;
+             cout << "Srednee arifmeticheskoe: " << (double)sum / c << endl;
+
+             cout << "\n --------------------9----------------\n";
+             int a, b = 0;
+             cout << "Vvedite diapazon: ";
+             cin >> a;
+                while (b < a) 
+                {
+                  b++;
+                  cout << "*";
+                }
+
+             cout << "\n --------------------10----------------\n";
+             int a, b = 0;
+   char c;
+   cout << "VVedite diapazon ";
+   cin >> a;
+   cout << "vvedite simvol: ";
+   cin >> c;
+   while (b < a) {
+       b++;
+       cout << c;
+   }
+
+
+             return 0;
+         }
+
+     
