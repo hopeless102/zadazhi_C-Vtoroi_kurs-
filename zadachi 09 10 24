@@ -1,0 +1,136 @@
+#include <iostream>
+#include <iomanip>
+using namespace std;
+int main()
+
+{
+
+   cout << "\n------------------------1------------------ \n";
+	int a, b;
+	cin >> a;
+	while (a > 0)
+	{
+		b = a % 10;
+		cout << b;
+		a /= 10;
+	}
+    cout << "\n------------------------2------------------\n";
+   int d, r;
+    do
+    {
+
+        r = 0;
+        cout << "chislo: ";
+        cin >> d;
+        for (;;)
+        {
+
+            if (d > 0) {
+
+                r += d % 10;
+                d /= 10;
+
+            }
+            else
+
+                break;
+
+        }
+        cout << "summa =  " << r << "esche raz? tikni  1\n";
+        cin >> d;
+
+    } while (d == 1);
+    cout << "\n------------------------3------------------\n";
+
+    int N;
+    cout << "skok dnei: ";
+    cin >> N;
+    int e = 0;
+    for (int i = 1; i <= N; i++) {
+        
+     int c = 15 + (i - 1) * 2;
+     
+       e += c;
+       }
+    cout << "rasstoyanie: " << e << " sm" << endl;
+
+
+    cout << "\n------------------------4------------------\n";
+    int q = 0;
+ int w = 0;
+
+ cout << "rezult (1 - orel, 2 - reshka):" << endl;
+
+ for (int i = 0; i < 9; i++) {
+     int y;
+     cin >> y;
+     if (y == 1) {
+         q++;
+     }
+     else if (y == 2) {
+         w++;
+     }
+     else {
+         cout << "net. vvedi 1 or 2." << endl;
+         i--; // Повторить текущий бросок
+     }
+ }
+ if (q % 2 == 0) {
+     cout << "polozhitelno " << endl;
+ }
+ else {
+     cout << "otricatelno" << endl;
+ }
+    cout << "------------------------5------------------";
+
+    int month, year, startDay;
+    cout << "mesyac kakoi? 1-12: ";
+    cin >> month;
+    cout << "god: ";
+    cin >> year;
+    cout << "den nedeli  (1-7, 1 - ponedelnik): ";
+    cin >> startDay;
+    
+    if (month < 1 || month > 12 || startDay < 1 || startDay > 7) {
+        cout << "!!!!!!!!!!!!! ERROR ERROR ERROR ERROR ERROR !!!!!!!!!!!!!" << endl;
+        return 1;
+    }
+    
+    int daysInMonth[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+    if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+        daysInMonth[1] = 29; 
+    }
+   
+    cout << "\nkalendar na  " << month << " mesyac " << year << " goda:\n" << endl;
+    cout << "Пн Вт Ср Чт Пт Сб Вс" << endl;
+  
+    for (int i = 1; i < startDay; ++i) 
+    {
+        cout << setw(3) << " ";
+    }
+ 
+    int day = 1;
+    for (int i = startDay; i <= daysInMonth[month - 1] + startDay - 1; ++i) 
+    {
+        cout << setw(3) << day++;
+
+        if (i % 7 == 0) 
+        {
+            cout << endl;
+        }
+    }
+    
+    int weekends = 0;
+    for (int i = startDay; i <= daysInMonth[month - 1] + startDay - 1; ++i) {
+        if (i % 7 == 6 || i % 7 == 0) 
+        { 
+            weekends++;
+        }
+    }
+    cout << "\nv etom mesyace " << weekends << " vihodnih." << endl;
+
+
+
+	return 0;
+}
+
