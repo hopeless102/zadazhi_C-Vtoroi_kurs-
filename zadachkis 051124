@@ -1,0 +1,124 @@
+print("-------------------------------------1-------------------------------")
+def nod(a, b):
+
+    if b == 0:
+        return a
+    else:
+        return nod(b, a % b)
+
+a = int(input("Введите первое число: "))
+b = int(input("Введите второе число: "))
+
+print("НОД", a, "и", b, "равен", nod(a, b))
+
+print("-------------------------------------2-------------------------------")
+
+def fib(n):
+    if n <= 1:
+        return n
+    else:
+        return fib(n - 1) + fib(n - 2)
+
+n = int(input("Введите номер числа Фибоначчи: "))
+print("Число Фибоначчи с номером", n, "равно", fib(n))
+
+print("-------------------------------------3-------------------------------")
+
+
+def rev(n):
+    if n < 10:
+        return n
+    else:
+        return int(str(n % 10) + str(rev(n // 10)))
+
+num = int(input("Введите натуральное число: "))
+reverse = rev(num)
+print("Перевёрнутое число:", reverse)
+
+print("-------------------------------------4-------------------------------")
+def sumnum(n, m, X=0, Z=[], result=[]):
+
+  if m == 0:
+    if X == n:
+      result.append(Z)
+    return
+
+  for i in range(1, n - X + 1):
+    sumnum(n, m - 1, X + i, Z + [i], result)
+
+  return result
+
+
+G = int(input("Введите число G: "))
+H =  int(input("Введите число H: "))
+rep = sumnum(G, H)
+if rep is not None:
+  print(f"Представления числа {G} в виде суммы {H} слагаемых:")
+  for reps in rep:
+    print(reps)
+else:
+  print(f"Число {G} не может быть представлено в виде суммы {H} слагаемых.")
+print("-------------------------------------5-------------------------------")
+
+def count_ones(n):
+    if n == 0:
+        return 0
+    else:
+        return (n % 2) + count_ones(n // 2)
+
+n = int(input("Введите натуральное число: "))
+print("Количество единиц в двоичном представлении числа", n, "равно", count_ones(n))
+
+print("-------------------------------------6-------------------------------")
+
+def s(a, b):
+
+    while b > 0:
+        a += 1
+        b -= 1
+    return a
+
+n = int(input("Введите первое число: "))
+m = int(input("Введите второе число: "))
+print(f"Сумма чисел {n} и {m}, полученная при помощи прибавления единицы: {s(n, m)}")
+
+print("-------------------------------------7-------------------------------")
+
+def u(a, b):
+    result = 0
+    for i in range(abs(b)):
+        result += abs(a)
+    if (a < 0 and b > 0) or (a > 0 and b < 0):
+        result *= -1
+    return result
+
+n = int(input("Введите первое число: "))
+m = int(input("Введите второе число: "))
+print(f"Произведение чисел {n} и {m}, полученное при помощи сложения: {u(n, m)}")
+
+print("-------------------------------------8-------------------------------")
+
+def ipalindrome(s, i, j):   
+    while i < j:    
+        if s[i] != s[j]:
+            return False       
+        i += 1
+        j -= 1    
+    return True
+string = input("Введите строку: ")
+i = int(input("Введите начальную позицию (i): "))j = int(input("Введите конечную позицию (j): "))
+if ipalindrome(string, i, j):
+    print(f"Фрагмент строки '{string[i:j+1]}' является палиндромом.")
+else:
+    print(f"Фрагмент строки '{string[i:j+1]}' не является палиндромом.")
+
+print("-------------------------------------9-------------------------------")
+
+def digits(n):
+    if n == 0:
+        return 1
+    else:
+        return 1 + digits(n // 10)
+
+n = int(input("Введите число: "))
+print(f"В числе {n} {digits(n)} цифр.")
