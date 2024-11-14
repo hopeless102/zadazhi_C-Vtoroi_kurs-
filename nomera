@@ -1,0 +1,76 @@
+﻿#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+
+    setlocale(LC_ALL, "rus");
+
+    const int N = 10;
+    long long mobileNumbers[N];
+    long long homeNumbers[N];
+
+    mobileNumbers[0] = 79031234567;
+    mobileNumbers[1] = 79219876543;
+    mobileNumbers[2] = 79814567890;
+    mobileNumbers[3] = 79051234567;
+    mobileNumbers[4] = 79159876543;
+    mobileNumbers[5] = 79514567890;
+    mobileNumbers[6] = 79169876543;
+    mobileNumbers[7] = 79614567890;
+    mobileNumbers[8] = 79061234567;
+    mobileNumbers[9] = 79214567890;
+    homeNumbers[0] = 1234567;
+    homeNumbers[1] = 9876543;
+    homeNumbers[2] = 4567890;
+    homeNumbers[3] = 1234567;
+    homeNumbers[4] = 9876543;
+    homeNumbers[5] = 4567890;
+    homeNumbers[6] = 9876543;
+    homeNumbers[7] = 4567890;
+    homeNumbers[8] = 1234567;
+    homeNumbers[9] = 9876543;
+
+    int choice;
+
+    while (true) {
+        cout << "\nМеню:\n";
+        cout << "1. Отсортировать по мобильным номерам\n";
+        cout << "2. Отсортировать по домашним номерам\n";
+        cout << "3. Вывести данные\n";
+        cout << "0. Выход\n";
+        cout << "Введите ваш выбор: ";
+        cin >> choice;
+
+        switch (choice) {
+        case 1:
+            sort(mobileNumbers, mobileNumbers + N);
+            cout << "Мобильные номера отсортированы.\n";
+            break;
+        case 2:
+            sort(homeNumbers, homeNumbers + N);
+            cout << "Домашние номера отсортированы.\n";
+            break;
+        case 3:
+            cout << "Мобильные номера: ";
+            for (int i = 0; i < N; ++i) {
+                cout << mobileNumbers[i] << " ";
+            }
+            cout << endl;
+
+            cout << "Домашние номера: ";
+            for (int i = 0; i < N; ++i) {
+                cout << homeNumbers[i] << " ";
+            }
+            cout << endl;
+            break;
+        case 0:
+            cout << "Выход из программы.\n";
+            return 0; 
+        default:
+            cout << "Некорректный выбор. Попробуйте снова.\n";
+        }
+    }
+  
+}
