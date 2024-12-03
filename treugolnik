@@ -1,0 +1,80 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+setlocale(LC_ALL, "rus");
+int a,b,c,max;
+ cout << "Введите первую сторону";
+cin >> a;
+if (a == 0 or a < 0)
+{
+	cout << "сторона равна или меньше 0";
+	return 0;
+}
+
+else;
+
+cout << "Введите вторую сторону";
+cin >> b;   
+if (b == 0 or b < 0)
+{
+	cout << "сторона равна или меньше 0";
+	return 0;
+}
+
+else;
+
+cout << "Введите третью сторону";
+cin >> c;
+if (c == 0 or c < 0)
+{
+	cout << "сторона равна или меньше 0";
+	return 0;
+}
+
+else;
+
+if (max < a)
+{
+	max = a;
+}
+if (max < b)
+{
+	max = b;
+}
+if (max < c)
+{
+	max = c;
+}
+
+if (a + b < c or a + c < b or b + c < a)
+{
+	cout << "Сумма двух сторон меньше чем третья";
+	return 0;
+
+}
+else;
+
+cout << "треугольник построен правильно и ";
+if ((a == b == c) or (a ^ 2 + b ^ 2) < max or (a ^ 2 + c ^ 2) < max or (c ^ 2 + b ^ 2) == max  )
+{
+	cout << "он остроугольный";
+	return 0;
+}
+else;
+
+if ((a ^ 2 + b ^ 2) == max or (a ^ 2 + c ^ 2) == max or (b ^ 2 + c ^ 2) == max )
+{
+	cout << "он прямоугольный ";
+}
+else;
+
+if ((a ^ 2 + b ^ 2) > max or (a ^ 2 + c ^ 2) > max or (c ^ 2 + b ^ 2) > max )
+
+
+
+return 0;
+
+}
