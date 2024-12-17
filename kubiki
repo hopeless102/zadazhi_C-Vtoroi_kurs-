@@ -1,0 +1,87 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <iomanip>
+
+using namespace std;
+
+void displayDice(int die1, int die2) {
+    
+    cout << "kubiki: [" << die1 << ", " << die2 << "]" << endl;
+}
+
+int rollDice() {
+    
+    return (rand() % 6 + 1) + (rand() % 6 + 1);
+}
+
+int main() {
+  
+    srand(static_cast<unsigned int>(time(0))); 
+
+    int humanScore = 0, computerScore = 0;
+    char firstTurn;
+
+    
+    cout << "kto first? (h - human, c - computer): ";
+    cin >> firstTurn;
+
+    if (firstTurn != 'h' && firstTurn != 'c') 
+{
+        cerr << "no no no. libo 'h' - human libo c - computer." << std::endl;
+        return 1;
+}
+
+  
+    for (int round = 1; round <= 5; ++round) {
+        cout << "\n round " << round << ":\n";
+
+      
+        if (firstTurn == 'h') {
+            cout << "human hod:\n";
+            int humanRoll = rollDice();
+            humanScore += humanRoll;
+            displayDice(humanRoll / 2, (humanRoll + 1) / 2); 
+            firstTurn = 'c'; 
+        }
+        else {
+            cout << "computer hod:\n";
+            int computerRoll = rollDice();
+            computerScore += computerRoll;
+            displayDice(computerRoll / 2, (computerRoll + 1) / 2); 
+            firstTurn = 'h'; 
+        }
+
+ 
+        if (firstTurn == 'h') {
+            cout << "computer hod:\n";
+            int computerRoll = rollDice();
+            computerScore += computerRoll;
+            displayDice(computerRoll / 2, (computerRoll + 1) / 2); 
+            firstTurn = 'h'; 
+        }
+    }
+
+
+    cout << "\n results:\n";
+    cout << "human score: " << humanScore << "\n";
+    cout << "computer score: " << computerScore << "\n";
+
+
+    if (humanScore > computerScore) {
+        cout << "human win!" << endl;
+    }
+    else if (humanScore < computerScore) {
+        cout << "computer win!" << endl;
+    }
+    else {
+        cout << "nobody win!" << endl;
+    }
+
+  
+    cout << fixed << setprecision(2);
+    cout << "srednyaya summa score for human: " << static_cast<double>(humanScore) / 5 << endl;
+    cout << "srednyaya summa score for computer: " << static_cast<double>(computerScore) / 5 << endl;
+
+    return 0;
+}
