@@ -1,0 +1,129 @@
+#include <iostream>
+#include <cmath>
+
+// 1 задание
+
+ double f(double x) {
+     return x * sin(x) - 1;
+ }
+double g(double x) 
+{
+    return 1 / sin(x); 
+}
+
+double bisection(double a, double b, double tol) {
+    double c;
+    while ((b - a) >= tol) {
+        c = (a + b) / 2; 
+        if (f(c) == 0.0) 
+            break;
+        else if (f(c) * f(a) < 0) 
+            b = c;
+        else 
+            a = c;
+    }
+    return c; 
+}
+
+int main() 
+{
+    // 1 задание 
+
+    double a = 0; 
+    double b = M_PI / 2; 
+    double tol = 1e-4; 
+    
+    double x0 = 1.0; 
+    double x1; 
+    double h = 1e-6; 
+    int max_iterations = 1000; 
+    int iteration = 0;
+
+    double root = bisection(a, b, tol);
+    std::cout << "Наименьший по модулю и отличный от нуля корень: " << root << std::endl;
+
+    return 0;
+  
+
+    
+    
+// 3 задание
+    
+    int N = static_cast<int>(ceil(log2((b - a) / tol)));
+
+    double c; 
+
+    
+    for (int i = 0; i < N; ++i) {
+        c = (a + b) / 2; 
+
+        
+        if (f(c) == 0.0) {
+            break; 
+        }
+
+        
+        if (f(c) * f(a) < 0) {
+            b = c; 
+        } else {
+            a = c; 
+        }
+    }
+
+    std::cout << "Наименьший по модулю и отличный от нуля корень: " << c << std::endl;
+    std::cout << "Количество итераций: " << N << std::endl;
+
+    return 0;
+   
+
+    // 4 задание
+    
+    double x0 = 1.0; 
+    double x1; 
+    double h = 1e-5; 
+    int max_iterations = 1000; 
+    int iteration = 0;
+
+    
+    do {
+        x1 = g(x0); 
+        iteration++;
+        if (fabs(x1 - x0) < h) { 
+            break;
+        }
+        x0 = x1; 
+    } while (iteration < max_iterations);
+
+    
+    if (iteration == max_iterations) {
+        std::cout << "Метод не сошелся за " << max_iterations << " итераций." << std::endl;
+    } else {
+        std::cout << "Найденный корень: " << x1 << std::endl;
+        std::cout << "Количество итераций: " << iteration << std::endl;
+    }
+
+    return 0;
+  
+
+
+
+  
+    do {
+        x1 = g(x0); 
+        iteration++;
+        if (fabs(x1 - x0) < h) { 
+            break;
+        }
+        x0 = x1; 
+    } while (iteration < max_iterations);
+
+    
+    if (iteration == max_iterations) {
+        std::cout << "Метод не сошелся за " << max_iterations << " итераций." << std::endl;
+    } else {
+        std::cout << "Найденный корень: " << x1 << std::endl;
+        std::cout << "Количество итераций: " << iteration << std::endl;
+    }
+
+    return 0;
+}
