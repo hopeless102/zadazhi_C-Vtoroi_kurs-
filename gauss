@@ -1,0 +1,267 @@
+// три кода запущены отдельно, поэтому три раза повторяется include, int main и остальное.
+// 1
+#include <iostream>
+using namespace std;
+// Вывод системы уравнений
+void sysout(double** a, double* y, int n)
+{
+  for (int i = 0; i < n; i++)
+  {
+    for (int j = 0; j < n; j++)
+    {
+      cout << a[i][j] << "*x" << j;
+      if (j < n - 1)
+        cout << " + ";
+    }
+    cout << " = " << y[i] << endl;
+  }
+  return;
+}
+double* gauss(double** a, double* y, int n)
+{
+  double* x, max;
+  int k, index;
+  const double eps = 0.00001;  // точность
+  x = new double[n];
+  k = 0;
+  while (k < n)
+  {
+    // Поиск строки с максимальным a[i][k]
+    max = abs(a[k][k]);
+    index = k;
+    for (int i = k + 1; i < n; i++)
+    {
+      if (abs(a[i][k]) > max)
+      {
+        max = abs(a[i][k]);
+        index = i;
+      }
+    }
+    // Перестановка строк
+    if (max < eps)
+    {
+      // нет ненулевых диагональных элементов
+      cout << "Решение получить невозможно из-за нулевого столбца ";
+      cout << index << " матрицы A" << endl;
+      return 0;
+    }
+    for (int j = 0; j < n; j++)
+    {
+      double temp = a[k][j];
+      a[k][j] = a[index][j];
+      a[index][j] = temp;
+    }
+    double temp = y[k];
+    y[k] = y[index];
+    y[index] = temp;
+    // Нормализация уравнений
+    for (int i = k; i < n; i++)
+    {
+      double temp = a[i][k];
+      if (abs(temp) < eps) continue; // для нулевого коэффициента пропустить
+      for (int j = k; j < n; j++)
+        a[i][j] = a[i][j] / temp;
+      y[i] = y[i] / temp;
+      if (i == k)  continue; // уравнение не вычитать само из себя
+      for (int j = 0; j < n; j++)
+        a[i][j] = a[i][j] - a[k][j];
+      y[i] = y[i] - y[k];
+    }
+    k++;
+  }
+  // обратная подстановка
+  for (k = n - 1; k >= 0; k--)
+  {
+    x[k] = y[k];
+    for (int i = 0; i < k; i++)
+      y[i] = y[i] - a[i][k] * x[k];
+  }
+  return x;
+}
+int main()
+{
+  double** a, * y, * x;
+  int n;
+  system("chcp 1251");
+  system("cls");
+  cout << "Введите количество уравнений: ";
+  cin >> n;
+  a = new double* [n];
+  y = new double[n];
+  for (int i = 0; i < n; i++)
+  {
+    a[i] = new double[n];
+    for (int j = 0; j < n; j++)
+    {
+      cout << "a[" << i << "][" << j << "]= ";
+      cin >> a[i][j];
+    }
+  }
+  for (int i = 0; i < n; i++)
+  {
+    cout << "y[" << i << "]= ";
+    cin >> y[i];
+  }
+  sysout(a, y, n);
+  x = gauss(a, y, n);
+  for (int i = 0; i < n; i++)
+    cout << "x[" << i << "]=" << x[i] << endl;
+  for (int i = 0; i < n; i++)
+    delete[] a[i];
+  delete[] a;
+  delete[] y;
+  delete[] x;
+  cin.get(); cin.get();
+  return 0;
+}
+
+//2
+#include <iostream>
+#include <vector>
+#include <cmath> // Для fabs() (абсолютного значения)
+
+using namespace std;
+
+double determinant(vector<vector<double>> matrix) {
+    int n = matrix.size();
+    double det = 1.0;
+    int swaps = 0;
+
+    for (int col = 0; col < n; ++col) {
+        // 1. Поиск ненулевого элемента на главной диагонали или ниже
+        int pivot_row = col;
+        while (pivot_row < n && fabs(matrix[pivot_row][col]) < 1e-9) { // Используем маленькое число для сравнения с 0
+            pivot_row++;
+        }
+
+        if (pivot_row == n) {
+            return 0.0; // Матрица сингулярна
+        }
+
+        // 2. Перестановка строк
+        if (pivot_row != col) {
+            swap(matrix[col], matrix[pivot_row]);
+            swaps++;
+        }
+
+        // 3. Обнуление элементов ниже диагонали
+        for (int row = col + 1; row < n; ++row) {
+            double factor = matrix[row][col] / matrix[col][col];
+            for (int k = col; k < n; ++k) {
+                matrix[row][k] -= factor * matrix[col][k];
+            }
+        }
+    }
+
+    // 4. Вычисление определителя
+    for (int i = 0; i < n; ++i) {
+        det *= matrix[i][i];
+    }
+
+    // Учитываем знак перестановок
+    if (swaps % 2 != 0) {
+        det = -det;
+    }
+
+    return det;
+}
+
+int main() {
+   
+    vector<vector<double>> matrix1 = {
+        {2, 1, 1},
+        {1, 3, 2},
+        {1, 0, 1}
+    };
+  
+    return 0;
+}
+//3 
+#include<iostream>
+#include<iomanip>
+#include<math.h>
+#include<stdlib.h>
+
+#define SIZE 10
+
+using namespace std;
+
+int main()
+{
+		 float a[SIZE][SIZE], x[SIZE], ratio;
+		 int i,j,k,n;
+
+       
+         cout<< setprecision(3)<< fixed;
+
+		 
+		 cout<<"Enter order of matrix: ";
+		 cin>>n;
+
+		 
+		 cout<<"Enter coefficients of Matrix: " << endl;
+		 for(i=1;i<=n;i++)
+		 {
+			  for(j=1;j<=n;j++)
+			  {
+				   cout<<"a["<< i<<"]"<< j<<"]= ";
+                   cin>>a[i][j];
+			  }
+		 }
+
+		
+		 for(i=1;i<=n;i++)
+		 {
+			  for(j=1;j<=n;j++)
+			  {
+				   if(i==j)
+				   {
+				    	a[i][j+n] = 1;
+				   }
+				   else
+				   {
+				    	a[i][j+n] = 0;
+				   }
+			  }
+		 }
+
+		
+		 for(i=1;i<=n;i++)
+		 {
+			  if(a[i][i] == 0.0)
+			  {
+				   cout<<"Mathematical Error!";
+				   exit(0);
+			  }
+			  for(j=1;j<=n;j++)
+			  {
+				   if(i!=j)
+				   {
+					    ratio = a[j][i]/a[i][i];
+					    for(k=1;k<=2*n;k++)
+					    {
+					     	a[j][k] = a[j][k] - ratio*a[i][k];
+					    }
+				   }
+			  }
+		 }
+	
+		 for(i=1;i<=n;i++)
+		 {
+			  for(j=n+1;j<=2*n;j++)
+			  {
+			   	a[i][j] = a[i][j]/a[i][i];
+			  }
+		 }
+	
+		 cout<< endl<<"Inverse Matrix is:"<< endl;
+		 for(i=1;i<=n;i++)
+		 {
+			  for(j=n+1;j<=2*n;j++)
+			  {
+			   	cout<< a[i][j]<<"\t";
+			  }
+			  cout<< endl;
+		 }
+		 return(0);
+}
