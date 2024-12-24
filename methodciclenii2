@@ -1,0 +1,62 @@
+﻿#include <iostream>
+#include <cmath>
+#include <iomanip>
+#include <locale>
+
+using namespace std;
+
+// Функция f(x) = 5 * sin(2x) - sqrt(1 - x)
+
+double f(double x) {
+    return 5 * sin(2 * x) - sqrt(1 - x);
+}
+
+// Метод хорд (Secant Method)
+
+double secant_method(double x0, double x1, double tolerance, int max_iterations) {
+    double x2 = 0.0;
+    int iterations = 0;
+
+    while (iterations < max_iterations) {
+        if (f(x1) - f(x0) == 0) {
+            cout << "Деление на 0!" << endl;
+            return numeric_limits<double>::quiet_NaN();
+        }
+        x2 = x1 - f(x1) * (x1 - x0) / (f(x1) - f(x0));
+
+        if (abs(x2 - x1) < tolerance) {
+            cout << "Количество итераций: " << iterations << endl;
+            return x2;
+        }
+
+        x0 = x1;
+        x1 = x2;
+
+        iterations++;
+    }
+
+    cout << "Метод не сошелся за " << max_iterations << " итераций." << endl;
+    return numeric_limits<double>::quiet_NaN(); // Возвращаем NaN, если не удалось найти корень
+}
+
+int main() {
+    setlocale(LC_ALL, "Ru");
+
+    double x0 = -3.0; // Начальная точка a
+    double x1 = -2.9; // Начальная точка b
+    double tolerance = 1e-6; // Точность
+    int max_iterations = 100;  // Макс кол-во итераций
+
+    double root = secant_method(x0, x1, tolerance, max_iterations);
+
+    if (!isnan(root)) {
+        cout << fixed << setprecision(10);
+        cout << "Приближенный корень: " << root << endl;
+        cout << "Значение функции f(x) в корне: " << f(root) << endl;
+    }
+    else {
+        cout << "Корень не найден" << endl;
+    }
+
+    return 0;
+}
