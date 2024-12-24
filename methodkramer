@@ -1,0 +1,83 @@
+#include <iostream>
+#include <vector>
+#include <cmath>
+
+using namespace std;
+
+double determinant(const vector<vector<double>>& matrix) {
+    int size = matrix.size();
+    if (size == 1) {
+        return matrix[0][0];
+    }
+    double det = 0;
+    for (int i = 0; i < size; i++) {
+        vector<vector<double>> submatrix;
+        for (int j = 1; j < size; j++) {
+            vector<double> row;
+            for (int k = 0; k < size; k++) {
+                if (k != i) {
+                    row.push_back(matrix[j][k]);
+                }
+            }
+            submatrix.push_back(row);
+        }
+        double subdet = determinant(submatrix);
+        det += pow(-1, i) * matrix[0][i] * subdet;
+    }
+    return det;
+}
+vector<double> solveKramer(const vector<vector<double>>& matrix, const vector<double>& constants) {
+    int size = matrix.size();
+    vector<double> solutions(size);
+
+    double det = determinant(matrix);
+    if (det == 0) {
+        return {};  // Система не имеет решений
+    }
+
+    for (int i = 0; i < size; i++) {
+        vector<vector<double>> submatrix;
+        for (int j = 0; j < size; j++) {
+            vector<double> row;
+            for (int k = 0; k < size; k++) {
+                if (k == i) {
+                    row.push_back(constants[k]);
+                } else {
+                    row.push_back(matrix[j][k]);
+                }
+            }
+            submatrix.push_back(row);
+        }
+        double subdet = determinant(submatrix);
+        solutions[i] = subdet / det;
+    }
+    return solutions;
+}
+int main() {
+    int size;
+    cout << "Введите размерность квадратной матрицы: ";
+    cin >> size;
+
+    vector<vector<double>> matrix(size, vector<double>(size));
+    cout << "Введите элементы матрицы коэффициентов:" << endl;
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            cin >> matrix[i][j];
+        }
+    }
+    vector<double> constants(size);
+    cout << "Введите столбец свободных членов:" << endl;
+    for (int i = 0; i < size; i++) {
+        cin >> constants[i];
+    }
+    vector<double> solutions = solveKramer(matrix, constants);
+    if (!solutions.empty()) {
+        cout << "Решения системы линейных уравнений:" << endl;
+        for (int i = 0; i < size; i++) {
+            cout << "x" << (i + 1) << " = " << solutions[i] << endl;
+        }
+    } else {
+        cout << "Система не имеет решений" << endl;
+    }
+    return 0;
+}
