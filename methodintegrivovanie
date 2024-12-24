@@ -1,0 +1,114 @@
+#include <iostream>
+#include <cmath>
+#include <iomanip>
+#include <vector>
+
+using namespace std;
+
+
+double f(double x) {
+  // Пример: x^2
+  return x * x; 
+  //Можно заменить на любую другую функцию, например: return sin(x)
+}
+
+
+// Метод прямоугольников (левых)
+double rectangleRuleLeft(double a, double b, int n) {
+    double h = (b - a) / n;
+    double integral = 0.0;
+    for (int i = 0; i < n; ++i) {
+        integral += f(a + i * h);
+    }
+    return integral * h;
+}
+
+
+// Метод прямоугольников (правых)
+double rectangleRuleRight(double a, double b, int n) {
+     double h = (b - a) / n;
+    double integral = 0.0;
+    for (int i = 1; i <= n; ++i) {
+        integral += f(a + i * h);
+    }
+    return integral * h;
+}
+
+// Метод прямоугольников (средних)
+double rectangleRuleMidpoint(double a, double b, int n) {
+    double h = (b - a) / n;
+    double integral = 0.0;
+     for (int i = 0; i < n; ++i) {
+        integral += f(a + (i + 0.5) * h);
+    }
+    return integral * h;
+}
+
+// Метод трапеций
+double trapezoidalRule(double a, double b, int n) {
+    double h = (b - a) / n;
+    double integral = 0.5 * (f(a) + f(b));
+    for (int i = 1; i < n; ++i) {
+        integral += f(a + i * h);
+    }
+    return integral * h;
+}
+
+// Метод Симпсона
+double simpsonRule(double a, double b, int n) {
+    if (n % 2 != 0) {
+        cout << "Количество интервалов должно быть четным для метода Симпсона." << endl;
+        return numeric_limits<double>::quiet_NaN();
+    }
+    
+    double h = (b - a) / n;
+    double integral = f(a) + f(b);
+    for (int i = 1; i < n; i += 2) {
+        integral += 4 * f(a + i * h);
+    }
+    for (int i = 2; i < n - 1; i += 2) {
+        integral += 2 * f(a + i * h);
+    }
+    return integral * h / 3;
+}
+
+
+// Метод Монте-Карло
+double monteCarloIntegration(double a, double b, int n) {
+   double integral = 0.0;
+    for(int i = 0; i < n; ++i){
+        double x = a + ((double)rand() / RAND_MAX) * (b-a);
+        integral += f(x);
+    }
+    return (b-a) * integral / n;
+}
+
+int main() {
+
+setlocale(LC_ALL, "Ru");
+    double a, b;
+    int n;
+
+    cout << "Введите левую границу интегрирования (a): ";
+    cin >> a;
+    cout << "Введите правую границу интегрирования (b): ";
+    cin >> b;
+    cout << "Введите количество интервалов (n): ";
+    cin >> n;
+
+   cout << endl <<  "----------------------" << endl;
+    cout << "Метод прямоугольников (левых): " << fixed << setprecision(10) << rectangleRuleLeft(a, b, n) << endl;
+    cout << "Метод прямоугольников (правых): " << fixed << setprecision(10) << rectangleRuleRight(a,b,n) << endl;
+    cout << "Метод прямоугольников (средних): " << fixed << setprecision(10) << rectangleRuleMidpoint(a, b, n) << endl;
+    cout << "Метод трапеций: " << fixed << setprecision(10) << trapezoidalRule(a, b, n) << endl;
+    
+    double simpsonResult = simpsonRule(a,b,n);
+    if(!isnan(simpsonResult))
+        cout << "Метод Симпсона: " << fixed << setprecision(10) << simpsonResult << endl;
+    
+    
+    cout << "Метод Монте-Карло: " << fixed << setprecision(10) << monteCarloIntegration(a, b, n) << endl;
+
+
+    return 0;
+}
