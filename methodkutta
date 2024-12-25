@@ -1,0 +1,39 @@
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+// Функция, представляющая правую часть дифференциального уравнения dy/dx = f(x, y)
+double f(double x, double y) {
+    // Пример: dy/dx = x + y
+    return x + y;
+}
+
+// Метод Рунге-Кутты 4-го порядка
+double Kutta(double x_init, double y_init, double h, double b) {
+    double x = x_init;
+    double y = y_init;
+
+    while (x < b) {
+        cout << "x = " << fixed << setprecision(4) << x << ", y = " << fixed <<setprecision(4) << y << endl;
+        double k1 = h * f(x, y);
+        double k2 = h * f(x + h / 2.0, y + k1 / 2.0);
+        double k3 = h * f(x + h / 2.0, y + k2 / 2.0);
+        double k4 = h * f(x + h, y + k3);
+
+        y = y + (k1 + 2 * k2 + 2 * k3 + k4) / 6.0;
+        x = x + h;
+    }
+    return y;
+}
+
+int main() {
+    double initial_x = 0.0;  // Начальное значение x
+    double initial_y = 1.0;  // Начальное значение y
+    double step_size = 0.1;  // Размер шага h
+    double upper_bound = 1.0; // Верхняя граница b
+
+    double final_y = Kutta(initial_x, initial_y, step_size, upper_bound);
+    cout << "Приблизительное конечное y: " << fixed << setprecision(4) << final_y << endl;
+
+    return 0;
+}
