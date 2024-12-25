@@ -10,13 +10,13 @@ double f(double x, double y) {
 }
 
 // Реализация метода Эйлера
-double eulerMethod(double x_init, double y_init, double h, double b) 
+double euler(double x_init, double y_init, double h, double b) 
 {
     double x = x_init; // Инициализируем x начальным значением
     double y = y_init; // Инициализируем y начальным значением
 
     while (x <= b) { // Пока x меньше или равно b, выполняем итерации
-        cout << "x = " << std::fixed << std::setprecision(4) << x << ", y = " << std::fixed << std::setprecision(4) << y << std::endl; // Выводим текущие x и y
+        cout << "x = " << fixed << setprecision(4) << x << ", y = " << fixed << setprecision(4) << y << endl; // Выводим текущие x и y
 
         y = y + h * f(x, y); // Обновляем y с помощью метода Эйлера
         x = x + h;         // Увеличиваем x на размер шага h
@@ -30,8 +30,8 @@ int main() {
     double step_size = 0.1;    // Размер шага h
     double upper_bound = 1.0;   // Верхняя граница b
 
-    double final_y = eulerMethod(initial_x, initial_y, step_size, upper_bound); // Вызываем метод Эйлера
-    cout << "Приблизительное конечное y: " << std::fixed << std::setprecision(4) << final_y << std::endl; // Выводим конечное аппроксимированное y
+    double final_y = euler(initial_x, initial_y, step_size, upper_bound); // Вызываем метод Эйлера
+    cout << "Приблизительное конечное y: " << fixed << setprecision(4) << final_y << endl; // Выводим конечное аппроксимированное y
 
     return 0;
 }
