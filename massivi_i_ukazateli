@@ -1,0 +1,81 @@
+#include <iostream>
+
+using namespace std;
+
+// Вспомогательная функция для вывода массива
+void printArray(int* arr, int size) {
+    for (int i = 0; i < size; ++i) {
+        cout << *(arr + i) << " ";
+    }
+    cout << endl;
+}
+
+// Задание 1: Копирование массива с использованием двух указателей
+void copyArray(int* source, int* destination, int size) {
+    for (int i = 0; i < size; ++i) {
+        *(destination + i) = *(source + i);
+    }
+}
+
+// Задание 2: Изменение порядка следования элементов массива на противоположный
+void reverseArray(int* arr, int size) {
+    int* left = arr;
+    int* right = arr + size - 1;
+
+    while (left < right) {
+        int temp = *left;
+        *left = *right;
+        *right = temp;
+        left++;
+        right--;
+    }
+}
+
+// Задание 3: Копирование в обратном порядке
+void copyReverseArray(int* source, int* destination, int size) {
+    int* source_end = source + size - 1;
+    for (int i = 0; i < size; ++i)
+    {
+        *(destination + i) = *(source_end - i);
+    }
+}
+
+int main() {
+    setlocale(LC_ALL, "ru");
+    // Пример использования задания 1
+    int sourceArray[] = { 1, 2, 3, 4, 5 };
+    const int size = sizeof(sourceArray) / sizeof(sourceArray[0]);
+    int destinationArray[size];
+
+    cout << "Задание 1:\nИсходный массив: ";
+    printArray(sourceArray, size);
+
+    copyArray(sourceArray, destinationArray, size);
+    cout << "Скопированный массив: ";
+    printArray(destinationArray, size);
+
+    // Пример использования задания 2
+    int arrayToReverse[] = { 1, 2, 3, 4, 5 };
+    int sizeReverse = sizeof(arrayToReverse) / sizeof(arrayToReverse[0]);
+
+    cout << "\nЗадание 2:\nИсходный массив: ";
+    printArray(arrayToReverse, sizeReverse);
+
+    reverseArray(arrayToReverse, sizeReverse);
+
+    cout << "Массив в обратном порядке: ";
+    printArray(arrayToReverse, sizeReverse);
+
+    // Пример использования задания 3
+    int sourceArrayToReverseCopy[] = { 1, 2, 3, 4, 5 };
+    const int sizeToReverseCopy = sizeof(sourceArrayToReverseCopy) / sizeof(sourceArrayToReverseCopy[0]);
+    int destinationArrayToReverseCopy[sizeToReverseCopy];
+
+    cout << "\nЗадание 3:\nИсходный массив: ";
+    printArray(sourceArrayToReverseCopy, sizeToReverseCopy);
+    copyReverseArray(sourceArrayToReverseCopy, destinationArrayToReverseCopy, sizeToReverseCopy);
+    cout << "Скопированный в обратном порядке массив: ";
+    printArray(destinationArrayToReverseCopy, sizeToReverseCopy);
+
+    return 0;
+}
