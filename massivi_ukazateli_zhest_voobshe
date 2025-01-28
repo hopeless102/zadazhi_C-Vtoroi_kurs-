@@ -1,0 +1,277 @@
+﻿#include <iostream>
+
+using namespace std;
+
+// ------------------------------------------------------------------
+// Задание 1: Сумма и произведение элементов
+// ------------------------------------------------------------------
+
+void sumProduct(int* arr, int size, int* sum, int* product) {
+    *sum = 0;
+    *product = 1;
+    for (int i = 0; i < size; ++i) {
+        *sum += *(arr + i);
+        *product *= *(arr + i);
+    }
+}
+
+// ------------------------------------------------------------------
+// Задание 2: Количество отрицательных, положительных и нулевых
+// ------------------------------------------------------------------
+
+void countElements(int* arr, int size, int* negatives, int* positives, int* zeros) {
+    *negatives = 0;
+    *positives = 0;
+    *zeros = 0;
+    for (int i = 0; i < size; ++i) {
+        if (*(arr + i) < 0) {
+            (*negatives)++;
+        }
+        else if (*(arr + i) > 0) {
+            (*positives)++;
+        }
+        else {
+            (*zeros)++;
+        }
+    }
+}
+
+// ------------------------------------------------------------------
+// Задание 3: Проверка подмножества
+// ------------------------------------------------------------------
+
+int* findSubarray(int* A, int sizeA, int* B, int sizeB) {
+    if (sizeB > sizeA) {
+        return nullptr;
+    }
+    for (int i = 0; i <= sizeA - sizeB; ++i) {
+        bool found = true;
+        for (int j = 0; j < sizeB; ++j) {
+            if (*(A + i + j) != *(B + j)) {
+                found = false;
+                break;
+            }
+        }
+        if (found) {
+            return A + i;
+        }
+    }
+    return nullptr;
+}
+
+// ------------------------------------------------------------------
+// Задание 4: Удаление отрицательных чисел из динамического массива
+// ------------------------------------------------------------------
+
+int* removeNegatives(int* arr, int& size) {
+    int* tempArr = new int[size];
+    int tempSize = 0;
+
+    for (int i = 0; i < size; ++i) {
+        if (*(arr + i) >= 0) {
+            *(tempArr + tempSize) = *(arr + i);
+            tempSize++;
+        }
+    }
+
+    if (tempSize == size) {
+        delete[] tempArr;
+        return arr;
+    }
+
+    int* newArr = new int[tempSize];
+    for (int i = 0; i < tempSize; ++i)
+        *(newArr + i) = *(tempArr + i);
+
+    size = tempSize;
+
+    delete[] arr;
+    delete[] tempArr;
+    return newArr;
+}
+
+
+// ------------------------------------------------------------------
+// Задание 5: Добавление блока элементов в конец массива
+// ------------------------------------------------------------------
+int* appendBlock(int* arr, int& size, int* block, int blockSize) {
+    int* newArr = new int[size + blockSize];
+
+    for (int i = 0; i < size; ++i)
+    {
+        *(newArr + i) = *(arr + i);
+    }
+    for (int i = 0; i < blockSize; ++i)
+    {
+        *(newArr + size + i) = *(block + i);
+    }
+
+    size += blockSize;
+    delete[] arr;
+    return newArr;
+}
+// ------------------------------------------------------------------
+// Задание 6: Вставка блока элементов, начиная с произвольного индекса
+// ------------------------------------------------------------------
+int* insertBlock(int* arr, int& size, int* block, int blockSize, int index) {
+    if (index < 0 || index > size) {
+        return arr;
+    }
+
+    int* newArr = new int[size + blockSize];
+
+    for (int i = 0; i < index; i++)
+    {
+        *(newArr + i) = *(arr + i);
+    }
+
+    for (int i = 0; i < blockSize; i++) {
+        *(newArr + index + i) = *(block + i);
+    }
+    for (int i = index; i < size; ++i)
+    {
+        *(newArr + blockSize + i) = *(arr + i);
+    }
+
+    size += blockSize;
+    delete[] arr;
+    return newArr;
+
+}
+
+// ------------------------------------------------------------------
+// Задание 7: Удаление блока элементов, начиная с произвольного индекса
+// ------------------------------------------------------------------
+
+int* removeBlock(int* arr, int& size, int index, int count) {
+    if (index < 0 || index >= size || count <= 0 || index + count > size) {
+        return arr; // Возвращаем исходный массив
+    }
+
+    int newSize = size - count;
+    int* newArr = new int[newSize];
+    for (int i = 0; i < index; ++i) {
+        *(newArr + i) = *(arr + i);
+    }
+
+    for (int i = index + count; i < size; ++i)
+    {
+        *(newArr + i - count) = *(arr + i);
+    }
+
+    size = newSize;
+    delete[] arr;
+    return newArr;
+}
+
+// ------------------------------------------------------------------
+// Вспомогательная функция для вывода массива
+// ------------------------------------------------------------------
+void printArray(int* arr, int size) {
+    for (int i = 0; i < size; ++i) {
+        cout << *(arr + i) << " ";
+    }
+    cout << endl;
+}
+
+
+int main() {
+    setlocale(LC_ALL, "ru");
+    // Пример использования задания 1
+    int arr1[] = { 1, 2, 3, 4, 5 };
+    int size1 = sizeof(arr1) / sizeof(arr1[0]);
+    int sum, product;
+    sumProduct(arr1, size1, &sum, &product);
+    cout << "Задание 1:\nСумма элементов: " << sum << ", Произведение элементов: " << product << endl;
+
+    // Пример использования задания 2
+    int arr2[] = { 1, -2, 3, -4, 0, 5 };
+    int size2 = sizeof(arr2) / sizeof(arr2[0]);
+    int negatives, positives, zeros;
+    countElements(arr2, size2, &negatives, &positives, &zeros);
+    cout << "\nЗадание 2:\nОтрицательные: " << negatives << ", Положительные: " << positives << ", Нулевые: " << zeros << endl;
+
+    // Пример использования задания 3
+    int A[] = { 1, 2, 3, 4, 5, 6, 7 };
+    int sizeA = sizeof(A) / sizeof(A[0]);
+    int B[] = { 3, 4, 5 };
+    int sizeB = sizeof(B) / sizeof(B[0]);
+    int* subPtr = findSubarray(A, sizeA, B, sizeB);
+    cout << "\nЗадание 3:\nМассив A: "; printArray(A, sizeA);
+    cout << "Массив B: "; printArray(B, sizeB);
+    if (subPtr != nullptr) {
+        cout << "Массив B является подмножеством A, начиная с позиции: " << (subPtr - A) << endl;
+    }
+    else {
+        cout << "Массив B не является подмножеством A." << endl;
+    }
+
+    // Пример использования задания 4
+    int size4 = 7;
+    int* arr4 = new int[size4];
+    int arr_init4[] = { 1,-2,3,-4,0,5,-6 };
+    for (int i = 0; i < size4; ++i)
+        *(arr4 + i) = arr_init4[i];
+    cout << "\nЗадание 4:\nИсходный массив: ";
+    printArray(arr4, size4);
+
+    arr4 = removeNegatives(arr4, size4);
+    cout << "Массив после удаления отрицательных чисел: ";
+    if (arr4)
+        printArray(arr4, size4);
+    delete[] arr4;
+
+
+    // Пример использования задания 5
+    int arr5[] = { 1, 2, 3 };
+    int size5 = sizeof(arr5) / sizeof(arr5[0]);
+    int block5[] = { 4, 5, 6 };
+    int blockSize5 = sizeof(block5) / sizeof(block5[0]);
+
+    int* dynamicArr5 = new int[size5];
+    for (int i = 0; i < size5; ++i)
+        *(dynamicArr5 + i) = arr5[i];
+    cout << "\nЗадание 5:\nИсходный динамический массив: ";
+    printArray(dynamicArr5, size5);
+
+    dynamicArr5 = appendBlock(dynamicArr5, size5, block5, blockSize5);
+    cout << "Массив после добавления блока: ";
+    printArray(dynamicArr5, size5);
+    delete[] dynamicArr5;
+
+
+    // Пример использования задания 6
+    int arr6[] = { 1, 2, 3, 7, 8 };
+    int size6 = sizeof(arr6) / sizeof(arr6[0]);
+    int block6[] = { 4, 5, 6 };
+    int blockSize6 = sizeof(block6) / sizeof(block6[0]);
+    int index6 = 3;
+
+    int* dynamicArr6 = new int[size6];
+    for (int i = 0; i < size6; ++i)
+        *(dynamicArr6 + i) = arr6[i];
+
+    cout << "\nЗадание 6:\nИсходный динамический массив: ";
+    printArray(dynamicArr6, size6);
+    dynamicArr6 = insertBlock(dynamicArr6, size6, block6, blockSize6, index6);
+    cout << "Массив после вставки блока с индекса " << index6 << ": ";
+    printArray(dynamicArr6, size6);
+    delete[] dynamicArr6;
+
+    // Пример использования задания 7
+    int arr7[] = { 1, 2, 3, 4, 5, 6, 7 };
+    int size7 = sizeof(arr7) / sizeof(arr7[0]);
+    int index7 = 1;
+    int count7 = 3;
+    int* dynamicArr7 = new int[size7];
+    for (int i = 0; i < size7; ++i)
+        *(dynamicArr7 + i) = arr7[i];
+    cout << "\nЗадание 7:\nИсходный динамический массив: ";
+    printArray(dynamicArr7, size7);
+    dynamicArr7 = removeBlock(dynamicArr7, size7, index7, count7);
+    cout << "Массив после удаления блока с индекса " << index7 << " длиной " << count7 << ": ";
+    printArray(dynamicArr7, size7);
+    delete[] dynamicArr7;
+
+    return 0;
+}
