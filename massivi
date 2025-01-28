@@ -1,0 +1,176 @@
+﻿#include <iostream>
+
+using namespace std;
+
+// Вспомогательная функция для вывода массива
+void printArray(int* arr, int size) {
+    for (int i = 0; i < size; ++i) {
+        cout << *(arr + i) << " ";
+    }
+    cout << endl;
+}
+
+
+// Задание 1: Поменять местами элементы с четными и нечетными индексами
+void swapEvenOdd(int* arr, int size) {
+    for (int i = 0; i < size - 1; i += 2)
+    {
+        int temp = *(arr + i);
+        *(arr + i) = *(arr + i + 1);
+        *(arr + i + 1) = temp;
+
+    }
+}
+
+// Задание 2: Сформировать массив C из отсортированных массивов A и B
+int* mergeSortedArrays(int* A, int n, int* B, int m) {
+    int* C = new int[n + m];
+    int i = 0, j = 0, k = 0;
+
+    while (i < n && j < m) {
+        if (*(A + i) < *(B + j)) {
+            *(C + k) = *(A + i);
+            i++;
+        }
+        else {
+            *(C + k) = *(B + j);
+            j++;
+        }
+        k++;
+    }
+
+    while (i < n) {
+        *(C + k) = *(A + i);
+        i++;
+        k++;
+    }
+    while (j < m) {
+        *(C + k) = *(B + j);
+        j++;
+        k++;
+    }
+
+    return C;
+}
+
+// Задание 3: Различные наборы элементов из двух массивов
+void collectElements(int* A, int n, int* B, int m) {
+    cout << "Элементы обоих массивов: ";
+    for (int i = 0; i < n; ++i) {
+        cout << *(A + i) << " ";
+    }
+    for (int i = 0; i < m; ++i) {
+        cout << *(B + i) << " ";
+    }
+    cout << endl;
+
+    cout << "Общие элементы: ";
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            if (*(A + i) == *(B + j)) {
+                cout << *(A + i) << " ";
+                break;
+            }
+        }
+    }
+    cout << endl;
+
+
+    cout << "Элементы A, не входящие в B: ";
+    bool found_b;
+    for (int i = 0; i < n; ++i) {
+        found_b = false;
+        for (int j = 0; j < m; ++j) {
+            if (*(A + i) == *(B + j)) {
+                found_b = true;
+                break;
+            }
+        }
+        if (!found_b) {
+            cout << *(A + i) << " ";
+        }
+    }
+    cout << endl;
+
+    cout << "Элементы B, не входящие в A: ";
+    bool found_a;
+    for (int i = 0; i < m; ++i) {
+        found_a = false;
+        for (int j = 0; j < n; ++j) {
+            if (*(B + i) == *(A + j)) {
+                found_a = true;
+                break;
+            }
+        }
+        if (!found_a) {
+            cout << *(B + i) << " ";
+        }
+    }
+    cout << endl;
+
+    cout << "Элементы A и B, не являющиеся общими: ";
+    for (int i = 0; i < n; ++i) {
+        found_b = false;
+        for (int j = 0; j < m; ++j) {
+            if (*(A + i) == *(B + j)) {
+                found_b = true;
+                break;
+            }
+        }
+        if (!found_b) {
+            cout << *(A + i) << " ";
+        }
+
+    }
+    for (int i = 0; i < m; ++i) {
+        found_a = false;
+        for (int j = 0; j < n; j++) {
+            if (*(B + i) == *(A + j)) {
+                found_a = true;
+                break;
+            }
+        }
+        if (!found_a) {
+            cout << *(B + i) << " ";
+        }
+
+    }
+    cout << endl;
+
+}
+
+int main() {
+    setlocale(LC_ALL, "ru");
+    // Пример использования задания 1
+    int arr1[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    int size1 = sizeof(arr1) / sizeof(arr1[0]);
+    cout << "Задание 1:\nИсходный массив: ";
+    printArray(arr1, size1);
+    swapEvenOdd(arr1, size1);
+    cout << "Массив после обмена: ";
+    printArray(arr1, size1);
+
+    // Пример использования задания 2
+    int A[] = { 1, 3, 5, 7, 9 };
+    int n = sizeof(A) / sizeof(A[0]);
+    int B[] = { 2, 4, 6, 8, 10, 11 };
+    int m = sizeof(B) / sizeof(B[0]);
+    cout << "\nЗадание 2:\nМассив A: ";
+    printArray(A, n);
+    cout << "Массив B: ";
+    printArray(B, m);
+    int* C = mergeSortedArrays(A, n, B, m);
+    cout << "Массив C: ";
+    printArray(C, n + m);
+    delete[] C; // Освобождаем выделенную память
+
+    // Пример использования задания 3
+    int arrA[] = { 1, 2, 3, 4, 5, 6 };
+    int sizeA = sizeof(arrA) / sizeof(arrA[0]);
+    int arrB[] = { 3, 5, 6, 7, 8, 9 };
+    int sizeB = sizeof(arrB) / sizeof(arrB[0]);
+    cout << "\nЗадание 3:\n";
+    collectElements(arrA, sizeA, arrB, sizeB);
+
+    return 0;
+}
