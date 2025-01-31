@@ -1,0 +1,100 @@
+﻿#include <iostream>
+#include <string>
+#include <locale>
+#include <limits>
+
+using namespace std;
+
+struct Car {
+    double length;         // Длина
+    double clearance;      // Клиренс (высота посадки)
+    double engineVolume;   // Объем двигателя
+    double enginePower;    // Мощность двигателя
+    double wheelDiameter;  // Диаметр колес
+    string color;          // Цвет
+    string transmissionType; // Тип коробки передач
+};
+
+void setCarValuesFromInput(Car& car) {
+    cout << "Введите длину автомобиля (м): ";
+    cin >> car.length;
+
+    cout << "Введите клиренс автомобиля (м): ";
+    cin >> car.clearance;
+
+    cout << "Введите объем двигателя (л): ";
+    cin >> car.engineVolume;
+
+    cout << "Введите мощность двигателя (л.с.): ";
+    cin >> car.enginePower;
+
+    cout << "Введите диаметр колес (дюймов): ";
+    cin >> car.wheelDiameter;
+
+    cout << "Введите цвет автомобиля: ";
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+    getline(cin, car.color);
+
+    cout << "Введите тип коробки передач: ";
+    getline(cin, car.transmissionType);
+}
+
+
+void displayCarValues(const Car& car) {
+    cout << "Характеристики автомобиля:\n";
+    cout << "  Длина: " << car.length << " м\n";
+    cout << "  Клиренс: " << car.clearance << " м\n";
+    cout << "  Объем двигателя: " << car.engineVolume << " л\n";
+    cout << "  Мощность двигателя: " << car.enginePower << " л.с.\n";
+    cout << "  Диаметр колес: " << car.wheelDiameter << " дюймов\n";
+    cout << "  Цвет: " << car.color << "\n";
+    cout << "  Тип коробки передач: " << car.transmissionType << "\n";
+}
+
+
+void findCarsByColor(Car cars[], int size, const string& color) {
+    bool found = false;
+    cout << "Результаты поиска по цвету '" << color << "':\n";
+
+    for (int i = 0; i < size; ++i) {
+        if (cars[i].color == color) {
+            displayCarValues(cars[i]);
+            found = true;
+             cout << endl;
+        }
+    }
+    if (!found) {
+        cout << "Автомобили с цветом '" << color << "' не найдены.\n";
+    }
+}
+
+int main() {
+    setlocale(LC_ALL, "ru");
+    cout << "--- Задание 2: Автомобиль ---\n";
+
+    int numCars;
+     cout << "Введите количество автомобилей: ";
+    cin >> numCars;
+
+    Car cars[numCars];
+
+    for (int i = 0; i < numCars; ++i)
+    {
+          cout << "\nВведите данные для автомобиля " << i + 1 << ":\n";
+        setCarValuesFromInput(cars[i]);
+    }
+
+    cout << "\nВсе автомобили:\n";
+     for (int i = 0; i < numCars; ++i) {
+        displayCarValues(cars[i]);
+        cout << endl;
+     }
+
+     string searchColor;
+    cout << "\nВведите цвет для поиска: ";
+     cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    getline(cin, searchColor);
+    findCarsByColor(cars, numCars, searchColor);
+
+    return 0;
+}
