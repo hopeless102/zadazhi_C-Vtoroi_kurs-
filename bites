@@ -1,0 +1,57 @@
+﻿#include <iostream>
+#include <iomanip>
+#include <bitset>
+
+using namespace std;
+
+union IntCharUnion {
+    int num;
+    char bytes[sizeof(int)];
+};
+
+void printBytesBinary(const char bytes[], int size) {
+    cout << "Байты в двоичном виде: ";
+    for (int i = 0; i < size; i++) {
+        cout << bitset<8>(bytes[i]) << " ";
+    }
+    cout << endl;
+}
+
+void printBytesHex(const char bytes[], int size) {
+    cout << "Байты в шестнадцатеричном виде: ";
+    for (int i = 0; i < size; i++) {
+        cout << hex << setfill('0') << setw(2) << static_cast<int>(bytes[i] & 0xFF) << " ";
+    }
+    cout << endl;
+}
+
+int main() {
+    setlocale(LC_ALL, "ru");
+    IntCharUnion data;
+
+    cout << "Введите целое число: ";
+    cin >> data.num;
+
+    cout << "Все байты числа: ";
+    for (int i = 0; i < sizeof(int); ++i) {
+        cout << static_cast<int>(data.bytes[i]) << " ";
+    }
+    cout << endl;
+
+    int byteIndex;
+    cout << "Введите номер байта для просмотра (0-" << sizeof(int) - 1 << "): ";
+    cin >> byteIndex;
+
+    if (byteIndex >= 0 && byteIndex < sizeof(int)) {
+        cout << "Байт #" << byteIndex << ": " << static_cast<int>(data.bytes[byteIndex]) << endl;
+    }
+    else {
+        cout << "Неверный номер байта" << endl;
+    }
+
+    printBytesBinary(data.bytes, sizeof(int));
+    printBytesHex(data.bytes, sizeof(int));
+
+
+    return 0;
+}
