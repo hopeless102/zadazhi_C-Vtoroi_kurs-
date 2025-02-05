@@ -1,0 +1,148 @@
+﻿#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <locale>
+#include <codecvt>
+
+using namespace std;
+
+// Функция для сравнения строк файлов (Задание 1)
+void compareFiles(const string& filename1, const string& filename2) {
+    ifstream file1(filename1);
+    ifstream file2(filename2);
+
+    if (!file1.is_open() || !file2.is_open()) {
+        cerr << "Ошибка: Невозможно открыть один или оба файла." << endl;
+        return;
+    }
+
+    string line1, line2;
+    int lineNumber = 1;
+    bool filesMatch = true;
+
+    while (getline(file1, line1) && getline(file2, line2)) {
+        if (line1 != line2) {
+            cout << "Строка " << lineNumber << " не совпадает:" << endl;
+            cout << "Файл 1: " << line1 << endl;
+            cout << "Файл 2: " << line2 << endl;
+            filesMatch = false;
+            break;
+        }
+        lineNumber++;
+    }
+
+    if (getline(file1, line1) || getline(file2, line2))
+    {
+        cout << "Количество строк в файлах не совпадает." << endl;
+        if (getline(file1, line1))
+        {
+            cout << "Файл 1 имеет большее количество строк:" << endl;
+            do {
+                cout << line1 << endl;
+            } while (getline(file1, line1));
+        }
+        else if (getline(file2, line2)) {
+            cout << "Файл 2 имеет большее количество строк:" << endl;
+            do {
+                cout << line2 << endl;
+            } while (getline(file2, line2));
+        }
+        filesMatch = false;
+    }
+
+
+    if (filesMatch) {
+        cout << "Файлы полностью совпадают." << endl;
+    }
+
+    file1.close();
+    file2.close();
+}
+
+// Функция для анализа файла и записи статистики (Задание 2)
+void analyzeFile(const string& inputFilename, const string& outputFilename) {
+    ifstream inputFile(inputFilename);
+    ofstream outputFile(outputFilename);
+
+    if (!inputFile.is_open() || !outputFile.is_open()) {
+        cerr << "Ошибка: Невозможно открыть файлы." << endl;
+        return;
+    }
+
+    int charCount = 0, lineCount = 0, vowelCount = 0, consonantCount = 0, digitCount = 0;
+    string line;
+    std::locale loc("ru_RU.UTF-8");
+
+    while (getline(inputFile, line)) {
+        lineCount++;
+
+        for (char c : line) {
+            charCount++;
+            if (isalpha(c, loc)) {
+                c = tolower(c, loc);
+                if (c == 'а' || c == 'о' || c == 'у' || c == 'ы' || c == 'э' || c == 'е' || c == 'ё' || c == 'и' || c == 'ю' || c == 'я') {
+                    vowelCount++;
+                }
+                else {
+                    consonantCount++;
+                }
+            }
+            else if (isdigit(c)) {
+                digitCount++;
+            }
+        }
+    }
+
+    outputFile << "Количество символов: " << charCount << endl;
+    outputFile << "Количество строк: " << lineCount << endl;
+    outputFile << "Количество гласных букв: " << vowelCount << endl;
+    outputFile << "Количество согласных букв: " << consonantCount << endl;
+    outputFile << "Количество цифр: " << digitCount << endl;
+
+    inputFile.close();
+    outputFile.close();
+    cout << "Статистика записана в файл " << outputFilename << endl;
+}
+
+// Функция для шифрования Цезаря (Задание 3)
+string caesarCipher(const string& text, int shift) {
+    string result = "";
+    std::locale loc("ru_RU.UTF-8");
+    for (char c : text) {
+        if (isalpha(c, loc)) {
+            char base = islower(c, loc) ? 'а' : 'А';
+            result += static_cast<char>((c - base + shift + 32) % 32 + base);
+        }
+        else {
+            result += c;
+        }
+    }
+    return result;
+}
+
+int main() {
+    setlocale(LC_ALL, "ru");
+    // Задание 1
+    cout << "Задание 1:" << endl;
+    compareFiles("file1.txt", "file2.txt");
+    cout << endl;
+
+    // Задание 2
+    cout << "Задание 2:" << endl;
+    analyzeFile("input.txt", "output.txt");
+    cout << endl;
+
+    // Задание 3
+    cout << "Задание 3:" << endl;
+    string text;
+    cout << "Введите текст для шифрования: ";
+    getline(cin >> ws, text);
+    int shift;
+    cout << "Введите сдвиг для шифра Цезаря: ";
+    cin >> shift;
+    cout << "Зашифрованный текст: " << caesarCipher(text, shift) << endl;
+    cout << endl;
+
+    return 0;
+}
