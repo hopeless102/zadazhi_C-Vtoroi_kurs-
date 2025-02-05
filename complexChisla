@@ -1,0 +1,77 @@
+﻿#include <iostream>
+#include <locale>
+#include <cmath>
+
+using namespace std;
+
+struct Complex {
+    double real; 
+    double imag; 
+};
+
+Complex addComplex(Complex c1, Complex c2) {
+    return { c1.real + c2.real, c1.imag + c2.imag };
+}
+
+Complex subtractComplex(Complex c1, Complex c2) {
+    return { c1.real - c2.real, c1.imag - c2.imag };
+}
+
+Complex multiplyComplex(Complex c1, Complex c2) {
+    return { c1.real * c2.real - c1.imag * c2.imag, c1.real * c2.imag + c1.imag * c2.real };
+}
+
+Complex divideComplex(Complex c1, Complex c2) {
+    double denominator = c2.real * c2.real + c2.imag * c2.imag;
+    if (denominator == 0) {
+        cout << "Деление на ноль!" << endl;
+        return { 0, 0 };
+    }
+    return { (c1.real * c2.real + c1.imag * c2.imag) / denominator, (c1.imag * c2.real - c1.real * c2.imag) / denominator };
+}
+
+void printComplex(const Complex& c) {
+    cout << c.real;
+    if (c.imag >= 0) {
+        cout << " + " << c.imag << "i";
+    }
+    else {
+        cout << " - " << -c.imag << "i";
+    }
+    cout << endl;
+}
+
+int main() {
+    setlocale(LC_ALL, "ru");
+    cout << "--- Задание 1: Комплексные числа ---\n";
+
+    Complex c1, c2;
+
+   
+    cout << "Введите действительную и мнимую части первого комплексного числа (a b): ";
+    cin >> c1.real >> c1.imag;
+
+    
+    cout << "Введите действительную и мнимую части второго комплексного числа (a b): ";
+    cin >> c2.real >> c2.imag;
+
+    cout << "\nКомплексное число 1: ";
+    printComplex(c1);
+    cout << "Комплексное число 2: ";
+    printComplex(c2);
+
+
+    cout << "Сумма: ";
+    printComplex(addComplex(c1, c2));
+
+    cout << "Разность: ";
+    printComplex(subtractComplex(c1, c2));
+
+    cout << "Произведение: ";
+    printComplex(multiplyComplex(c1, c2));
+
+    cout << "Частное: ";
+    printComplex(divideComplex(c1, c2));
+
+    return 0;
+}
