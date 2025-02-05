@@ -1,0 +1,154 @@
+﻿#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+struct Book {
+    string title;
+    string author;
+    string publisher;
+    string genre;
+};
+
+void printBooks(const Book books[], int count) {
+    for (int i = 0; i < count; ++i) {
+        cout << "Книга " << i + 1 << ":\n";
+        cout << "Название: " << books[i].title << "\n";
+        cout << "Автор: " << books[i].author << "\n";
+        cout << "Издательство: " << books[i].publisher << "\n";
+        cout << "Жанр: " << books[i].genre << "\n\n";
+    }
+}
+
+void editBook(Book& book) {
+    cout << "Введите новое название книги: ";
+    getline(cin, book.title);
+    cout << "Введите нового автора книги: ";
+    getline(cin, book.author);
+    cout << "Введите новое издательство: ";
+    getline(cin, book.publisher);
+    cout << "Введите новый жанр книги: ";
+    getline(cin, book.genre);
+}
+
+void searchByAuthor(const Book books[], int count, const string& author) {
+    cout << "Книги автора " << author << ":\n";
+    bool found = false;
+    for (int i = 0; i < count; ++i) {
+        if (books[i].author == author) {
+            cout << "  - " << books[i].title << "\n";
+            found = true;
+        }
+    }
+    if (!found) {
+        cout << "Книги данного автора не найдены.\n";
+    }
+}
+
+void searchByTitle(const Book books[], int count, const string& title) {
+    cout << "Книги с названием " << title << ":\n";
+    bool found = false;
+    for (int i = 0; i < count; ++i) {
+        if (books[i].title == title) {
+            cout << "  - Автор: " << books[i].author << "\n";
+            found = true;
+        }
+    }
+    if (!found) {
+        cout << "Книги с данным названием не найдены.\n";
+    }
+}
+
+bool compareByTitle(const Book& a, const Book& b) {
+    return a.title < b.title;
+}
+
+bool compareByAuthor(const Book& a, const Book& b) {
+    return a.author < b.author;
+}
+
+bool compareByPublisher(const Book& a, const Book& b) {
+    return a.publisher < b.publisher;
+}
+
+int main() {
+    Book library[10] = {
+        {"Книга1", "Автор1", "Издательство1", "Жанр1"},
+        {"Книга2", "Автор2", "Издательство2", "Жанр2"},
+        {"Книга3", "Автор1", "Издательство3", "Жанр1"},
+        {"Книга4", "Автор3", "Издательство1", "Жанр3"},
+        {"Книга5", "Автор2", "Издательство2", "Жанр2"},
+        {"Книга6", "Автор4", "Издательство1", "Жанр4"},
+        {"Книга7", "Автор1", "Издательство3", "Жанр1"},
+        {"Книга8", "Автор5", "Издательство2", "Жанр5"},
+        {"Книга9", "Автор6", "Издательство3", "Жанр6"},
+        {"Книга10", "Автор4", "Издательство1", "Жанр4"}
+    };
+
+    int choice;
+    do {
+        cout << "1. Печать всех книг\n";
+        cout << "2. Редактировать книгу\n";
+        cout << "3. Поиск книг по автору\n";
+        cout << "4. Поиск книги по названию\n";
+        cout << "5. Сортировка по названию\n";
+        cout << "6. Сортировка по автору\n";
+        cout << "7. Сортировка по издательству\n";
+        cout << "0. Выход\n";
+        cout << "Выберите действие: ";
+        cin >> choice;
+        cin.ignore(); // очистка ввода
+
+        switch (choice) {
+        case 1:
+            printBooks(library, 10);
+            break;
+        case 2: {
+            int index;
+            cout << "Введите номер книги для редактирования (1-10): ";
+            cin >> index;
+            cin.ignore();
+            if (index > 0 && index <= 10) {
+                editBook(library[index - 1]);
+            }
+            else {
+                cout << "Неверный номер книги.\n";
+            }
+            break;
+        }
+        case 3: {
+            string author;
+            cout << "Введите имя автора: ";
+            getline(cin, author);
+            searchByAuthor(library, 10, author);
+            break;
+        }
+        case 4: {
+            string title;
+            cout << "Введите название книги: ";
+            getline(cin, title);
+            searchByTitle(library, 10, title);
+            break;
+        }
+        case 5:
+            sort(library, library + 10, compareByTitle);
+            cout << "Книги отсортированы по названию.\n";
+            break;
+        case 6:
+            sort(library, library + 10, compareByAuthor);
+            cout << "Книги отсортированы по автору.\n";
+            break;
+        case 7:
+            sort(library, library + 10, compareByPublisher);
+            cout << "Книги отсортированы по издательству.\n";
+            break;
+        case 0:
+            cout << "Выход из программы.\n";
+            break;
+        default:
+            cout << "Неверный выбор.\n";
+        }
+    } while (choice != 0);
+
+    return 0;
+}
