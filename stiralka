@@ -1,47 +1,47 @@
-﻿#include <iostream>
+#include <iostream>
 
 
 using namespace std;
 
-struct boiler {
+struct stiralka {
     string model;
-    string collor;
+    string color;
     double width;
     double height;
     int power;
     int speed;
-    int temperate;
+    int temperature;
 };
 
 int main() {
     setlocale(LC_ALL, "ru");
-    boiler haier;
-    char choice;
+    stiralka bosch;
+    char vvod;
     cout << "введите модель стиральной машины: " << endl;
-    cin >> haier.model;
+    cin >> bosch.model;
     cout << "введите цвет стиральной машины: " << endl;
-    cin >> haier.collor;
-    cout << "введите размер стиральной машины(весота, ширина) : "<<endl;
-    cin >> haier.height >> haier.width;
+    cin >> bosch.color;
+    cout << "введите размер стиральной машины(высота, ширина) : " << endl;
+    cin >> bosch.height >> bosch.width;
     cout << "введите мощность стиральной машины: " << endl;
-    cin >> haier.power;
+    cin >> bosch.power;
     cout << "введите скорость стиральной машины: " << endl;
-    cin >> haier.speed;
+    cin >> bosch.speed;
     cout << "введите максимальный нагрев стиральной машины: " << endl;
-    cin >> haier.temperate;
+    cin >> bosch.temperature;
     do {
         cout << "\nчто хотите вывести?" << endl;
         cout << "1.модель стиральной машины\n2.цвет стиральной машины\n3.размер стиральной миашины\n4.мощность стиральной машины\n5.скорость стиральной машины\n6.максимальный нагрев\n0.выход\n";
-        cin >> choice;
-        switch (choice) {
-        case '1':cout << "модель: " << haier.model; break;
-        case'2':cout << "цвет: " << haier.collor; break;
-        case'3':cout << "размер: " << haier.height << haier.width; break;
-        case'4':cout << "мощность: " << haier.power; break;
-        case'5':cout << "скорость: " << haier.speed; break;
-        case'6':cout << "максимальный нагрев: " << haier.temperate; break;
-        case'0':cout << "Досвидание!"; break;
+        cin >> vvod;
+        switch (vvod) {
+        case '1':cout << "модель: " << bosch.model; break;
+        case'2':cout << "цвет: " << bosch.color; break;
+        case'3':cout << "размер: " << bosch.height << bosch.width; break;
+        case'4':cout << "мощность: " << bosch.power; break;
+        case'5':cout << "скорость: " << bosch.speed; break;
+        case'6':cout << "максимальный нагрев: " << bosch.temperature; break;
+        case'0':cout << "бб"; break;
         }
-    } while (choice != '0');
+    } while (vvod != '0');
     return 0;
 }
