@@ -5,7 +5,7 @@ using namespace std;
 
 struct animal {
     string name;
-    string klass;
+    string poroda;
     string sound;
 };
 
@@ -16,18 +16,18 @@ int main() {
     cout << "у нас есть Кот: " << endl;
     cout << "введите кличку Кота: " << endl;
     cin >> cat.name;
-    cout << "введите класс Кота: " << endl;
-    cin >> cat.klass;
-    cout << "как говорит Кот?"<<endl;
+    cout << "введите породу Кота: " << endl;
+    cin >> cat.poroda;
+    cout << "как говорит Кот?" << endl;
     cin >> cat.sound;
-  
+
     do {
         cout << "\nчто хотите вывести?" << endl;
-        cout << "1.Кличка\n2.Класс\n3.Голос\n0.выход\n";
+        cout << "1.Кличка\n2.порода\n3.Голос\n0.выход\n";
         cin >> choice;
         switch (choice) {
         case '1':cout << "Кличка: " << cat.name; break;
-        case'2':cout << "Класс: " << cat.klass; break;
+        case'2':cout << "порода: " << cat.poroda; break;
         case'3':cout << "Кот говорит: " << cat.sound; break;
         case'0':cout << "Досвидание!"; break;
         }
