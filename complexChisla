@@ -1,77 +1,86 @@
-﻿#include <iostream>
-#include <locale>
-#include <cmath>
+#include <iostream> 
 
-using namespace std;
 
+using namespace std; 
+
+// Структура для представления комплексного числа
 struct Complex {
-    double real; 
-    double imag; 
+    double real; // Действительная часть комплексного числа
+    double imag; // Мнимая часть комплексного числа
 };
 
-Complex addComplex(Complex c1, Complex c2) {
+// Функция для сложения двух комплексных чисел
+Complex summcomplex(Complex c1, Complex c2) {
+    // Возвращает новое комплексное число, являющееся суммой c1 и c2
     return { c1.real + c2.real, c1.imag + c2.imag };
 }
 
-Complex subtractComplex(Complex c1, Complex c2) {
+// Функция для вычитания двух комплексных чисел
+Complex raznostcomplex(Complex c1, Complex c2) {
+    // Возвращает новое комплексное число, являющееся разностью c1 и c2
     return { c1.real - c2.real, c1.imag - c2.imag };
 }
 
-Complex multiplyComplex(Complex c1, Complex c2) {
+// Функция для умножения двух комплексных чисел
+Complex proizvedeniecomplex(Complex c1, Complex c2) {
+    // Возвращает новое комплексное число, являющееся произведением c1 и c2
+    // Формула умножения: (a + bi) * (c + di) = (ac - bd) + (ad + bc)i
     return { c1.real * c2.real - c1.imag * c2.imag, c1.real * c2.imag + c1.imag * c2.real };
 }
 
-Complex divideComplex(Complex c1, Complex c2) {
-    double denominator = c2.real * c2.real + c2.imag * c2.imag;
+// Функция для деления двух комплексных чисел
+Complex deleniecomplex(Complex c1, Complex c2) {
+    // Возвращает новое комплексное число, являющееся частным c1 и c2
+    // Формула деления: (a + bi) / (c + di) = [(ac + bd) / (c^2 + d^2)] + [(bc - ad) / (c^2 + d^2)]i
+    double denominator = c2.real * c2.real + c2.imag * c2.imag; // Вычисляем знаменатель (c^2 + d^2)
     if (denominator == 0) {
-        cout << "Деление на ноль!" << endl;
+        cout << "Деление на ноль!" << endl; 
         return { 0, 0 };
     }
     return { (c1.real * c2.real + c1.imag * c2.imag) / denominator, (c1.imag * c2.real - c1.real * c2.imag) / denominator };
 }
 
+
 void printComplex(const Complex& c) {
-    cout << c.real;
+    // Выводит комплексное число в формате a + bi или a - bi
+    cout << c.real; // Выводим действительную часть
     if (c.imag >= 0) {
-        cout << " + " << c.imag << "i";
+        cout << " + " << c.imag << "i"; // Если мнимая часть неотрицательная, выводим "+"
     }
     else {
-        cout << " - " << -c.imag << "i";
+        cout << " - " << -c.imag << "i"; // Если мнимая часть отрицательная, выводим "-" и модуль мнимой части
     }
-    cout << endl;
+    cout << endl; 
 }
 
 int main() {
-    setlocale(LC_ALL, "ru");
-    cout << "--- Задание 1: Комплексные числа ---\n";
+    setlocale(LC_ALL, "ru"); 
+    cout << "--- Задание 1: Комплексные числа ---\n"; 
 
-    Complex c1, c2;
+    Complex c1, c2; // Объявление двух переменных типа Complex для хранения комплексных чисел
 
-   
+    // Ввод данных для первого комплексного числа
     cout << "Введите действительную и мнимую части первого комплексного числа (a b): ";
-    cin >> c1.real >> c1.imag;
+    cin >> c1.real >> c1.imag; // Чтение действительной и мнимой частей
 
-    
+    // Ввод данных для второго комплексного числа
     cout << "Введите действительную и мнимую части второго комплексного числа (a b): ";
-    cin >> c2.real >> c2.imag;
+    cin >> c2.real >> c2.imag; // Чтение действительной и мнимой частей
 
     cout << "\nКомплексное число 1: ";
-    printComplex(c1);
+    printComplex(c1); 
     cout << "Комплексное число 2: ";
-    printComplex(c2);
+    printComplex(c2); 
 
-
+  
     cout << "Сумма: ";
-    printComplex(addComplex(c1, c2));
-
+    printComplex(summcomplex(c1, c2));
     cout << "Разность: ";
-    printComplex(subtractComplex(c1, c2));
-
+    printComplex(raznostcomplex(c1, c2)); 
     cout << "Произведение: ";
-    printComplex(multiplyComplex(c1, c2));
-
+    printComplex(proizvedeniecomplex(c1, c2));
     cout << "Частное: ";
-    printComplex(divideComplex(c1, c2));
+    printComplex(deleniecomplex(c1, c2)); 
 
     return 0;
 }
