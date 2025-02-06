@@ -1,4 +1,4 @@
-include <iostream>
+#include <iostream>
 
 
 using namespace std;
@@ -10,7 +10,7 @@ struct utyug {
     double max_t;
     double min_t;
     int power;
-    
+
 };
 
 int main() {
@@ -23,11 +23,11 @@ int main() {
     cin >> haier.firma;
     cout << "введите подача пара пристутсвует?(да/нет): " << endl;
     cin >> haier.podacha;
-    cout << "введите максимальную и минимальную температуру : " << endl;
+    cout << "введите максимальную и минимальную температуру: " << endl;
     cin >> haier.max_t >> haier.min_t;
-    cout << "введите мощность стиральной машины: " << endl;
+    cout << "введите мощность утюга: " << endl;
     cin >> haier.power;
-   
+
     do {
         cout << "\nчто хотите вывести?" << endl;
         cout << "1.модель утюга\n2.фирма утюга\n3.максимальная и минимальная температура утюга\n4.мощность утюга\n5.подача пара\n0.выход\n";
@@ -38,7 +38,7 @@ int main() {
         case'3':cout << "максмиальная и минимальная температура: " << haier.max_t << haier.min_t; break;
         case'4':cout << "мощность: " << haier.power; break;
         case'5':cout << "подача пара: " << haier.podacha; break;
-        case'0':cout << "Досвидание!"; break;
+        case'0':cout << "пока!"; break;
         }
     } while (choice != '0');
     return 0;
