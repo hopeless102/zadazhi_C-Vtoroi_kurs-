@@ -1,14 +1,13 @@
-﻿#include <iostream>
-
+#include <iostream>
 
 using namespace std;
 
 struct boiler {
     string model;
-    string collor;
+    string color;
     int power;
     int obiem;
-    int temperate;
+    int temperature;
 };
 
 int main() {
@@ -18,23 +17,23 @@ int main() {
     cout << "введите модель бойлера: " << endl;
     cin >> haier.model;
     cout << "введите цвет бойлера: " << endl;
-    cin >> haier.collor;
+    cin >> haier.color;
     cout << "введите мощность бойлера: " << endl;
     cin >> haier.power;
     cout << "введите объем бойлера: " << endl;
     cin >> haier.obiem;
     cout << "введите максимальный нагрев бойлера: " << endl;
-    cin >> haier.temperate;
+    cin >> haier.temperature;
     do {
         cout << "\nчто хотите вывести?" << endl;
         cout << "1.модель боллера\n2.цвет боллера\n3.мощность боллера\n4.объем боллера\n5.максимальный нагрев\n0.выход\n";
         cin >> choice;
         switch (choice) {
         case '1':cout << "модель: " << haier.model; break;
-        case'2':cout << "цвет: " << haier.collor; break;
+        case'2':cout << "цвет: " << haier.color; break;
         case'3':cout << "мощность: " << haier.power; break;
         case'4':cout << "объем: " << haier.obiem; break;
-        case'5':cout << "максимальный нагрев: " << haier.temperate; break;
+        case'5':cout << "максимальный нагрев: " << haier.temperature; break;
         case'0':cout << "Досвидание!"; break;
         }
     } while (choice != '0');
