@@ -1,100 +1,133 @@
-﻿#include <iostream>
-#include <string>
-#include <locale>
-#include <limits>
+#include <iostream>   
+#include <string>     // Для работы со строками
+#include <vector>     // Для динамических массивов (векторов)
 
 using namespace std;
 
+
 struct Car {
-    double length;         // Длина
-    double clearance;      // Клиренс (высота посадки)
-    double engineVolume;   // Объем двигателя
-    double enginePower;    // Мощность двигателя
-    double wheelDiameter;  // Диаметр колес
-    string color;          // Цвет
-    string transmissionType; // Тип коробки передач
+    double length;          // Длина (м)
+    double clearance;       // Клиренс (см)
+    double engineVolume;    // Объем двигателя (л)
+    double enginePower;     // Мощность двигателя (л.с.)
+    double wheelDiameter;   // Диаметр колес (дюймы)
+    string color;            // Цвет
+    string transmissionType; // Тип КПП
 };
 
-void setCarValuesFromInput(Car& car) {
-    cout << "Введите длину автомобиля (м): ";
-    cin >> car.length;
 
-    cout << "Введите клиренс автомобиля (м): ";
-    cin >> car.clearance;
+double inputDouble(const string& prompt) {
+    double value;        // Переменная для хранения введенного значения
 
-    cout << "Введите объем двигателя (л): ";
-    cin >> car.engineVolume;
+    cout << prompt;      // Выводим приглашение для ввода
+    cin >> value;       // Считываем значение с клавиатуры
 
-    cout << "Введите мощность двигателя (л.с.): ";
-    cin >> car.enginePower;
+    // Проверяем, что ввод успешен и значение положительное
+    while (cin.fail() || value <= 0) {
+        cout << "Некорректный ввод. Введите положительное число: "; // Выводим сообщение об ошибке
 
-    cout << "Введите диаметр колес (дюймов): ";
-    cin >> car.wheelDiameter;
+        // Очищаем флаг ошибки и игнорируем остаток строки
+        cin.clear();
+        cin.ignore(1000, '\n');
 
-    cout << "Введите цвет автомобиля: ";
-    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
-    getline(cin, car.color);
+        cout << prompt;  // Снова выводим приглашение для ввода
+        cin >> value;   // Считываем значение с клавиатуры снова
+    }
 
-    cout << "Введите тип коробки передач: ";
-    getline(cin, car.transmissionType);
+    return value; // Возвращаем введенное значение
 }
 
+// Функция для задания значений полей структуры "Автомобиль"
+void setCarValues(Car& car) {
+    // Ввод длины
+    cout << "Введите длину (м): ";                         // Запрашиваем длину автомобиля
+    car.length = inputDouble("Введите длину (м): ");       // Считываем длину, используя функцию inputDouble
 
+    // Ввод клиренса
+    cout << "Введите клиренс (см): ";                      // Запрашиваем клиренс автомобиля
+    car.clearance = inputDouble("Введите клиренс (см): ");  // Считываем клиренс, используя функцию inputDouble
+
+    // Ввод объема двигателя
+    cout << "Введите объем (л): ";                          // Запрашиваем объем двигателя
+    car.engineVolume = inputDouble("Введите объем (л): ");    // Считываем объем, используя функцию inputDouble
+
+    // Ввод мощности двигателя
+    cout << "Введите мощность (л.с.): ";                     // Запрашиваем мощность двигателя
+    car.enginePower = inputDouble("Введите мощность (л.с.): ");  // Считываем мощность, используя функцию inputDouble
+
+    // Ввод диаметра колес
+    cout << "Введите диаметр колес (дюймы): ";             // Запрашиваем диаметр колес
+    car.wheelDiameter = inputDouble("Введите диаметр колес (дюймы): ");// Считываем диаметр, используя функцию inputDouble
+
+    cin.ignore(); // Очищаем буфер ввода перед getline() (важно!)
+
+    // Ввод цвета автомобиля
+    cout << "Введите цвет: ";                             // Запрашиваем цвет автомобиля
+    getline(cin, car.color);                             // Считываем цвет, используя getline
+
+    // Ввод типа КПП
+    cout << "Введите тип КПП: ";                          // Запрашиваем тип КПП
+    getline(cin, car.transmissionType);                    // Считываем тип КПП, используя getline
+}
+// Функция для отображения значений полей структуры "Автомобиль"
 void displayCarValues(const Car& car) {
-    cout << "Характеристики автомобиля:\n";
-    cout << "  Длина: " << car.length << " м\n";
-    cout << "  Клиренс: " << car.clearance << " м\n";
-    cout << "  Объем двигателя: " << car.engineVolume << " л\n";
-    cout << "  Мощность двигателя: " << car.enginePower << " л.с.\n";
-    cout << "  Диаметр колес: " << car.wheelDiameter << " дюймов\n";
-    cout << "  Цвет: " << car.color << "\n";
-    cout << "  Тип коробки передач: " << car.transmissionType << "\n";
+    cout << "  Длина: " << car.length << " м\n";          // Выводим длину автомобиля
+    cout << "  Клиренс: " << car.clearance << " см\n";       // Выводим клиренс автомобиля
+    cout << "  Объем: " << car.engineVolume << " л\n";       // Выводим объем двигателя
+    cout << "  Мощность: " << car.enginePower << " л.с.\n";    // Выводим мощность двигателя
+    cout << "  Диаметр: " << car.wheelDiameter << " дюймов\n"; // Выводим диаметр колес
+    cout << "  Цвет: " << car.color << "\n";           // Выводим цвет автомобиля
+    cout << "  КПП: " << car.transmissionType << "\n";    // Выводим тип КПП
 }
 
+// Функция для преобразования строки в нижний регистр
+string toLower(const string& s) {
+    string res = s;        // Создаем копию строки
+    for (char& c : res) {  // Итерируемся по каждому символу в копии (используем ссылку, чтобы изменить оригинал)
+        c = tolower(c);   // Преобразуем символ в нижний регистр
+    }
+    return res;            // Возвращаем преобразованную строку
+}
 
-void findCarsByColor(Car cars[], int size, const string& color) {
-    bool found = false;
-    cout << "Результаты поиска по цвету '" << color << "':\n";
-
-    for (int i = 0; i < size; ++i) {
-        if (cars[i].color == color) {
-            displayCarValues(cars[i]);
-            found = true;
-             cout << endl;
+// Функция для поиска автомобилей по цвету (регистронезависимый поиск)
+void findCarsByColor(const vector<Car>& cars, const string& color) {
+    cout << "Результаты поиска по цвету '" << color << "':\n"; // Выводим заголовок результатов поиска
+    bool found = false; // Флаг, показывающий, были ли найдены автомобили
+    for (const auto& car : cars) {  // Итерируемся по вектору автомобилей
+        if (toLower(car.color) == toLower(color)) { // Сравниваем цвета в нижнем регистре
+            displayCarValues(car); // Выводим информацию об автомобиле
+            found = true;        // Устанавливаем флаг в true
         }
     }
-    if (!found) {
-        cout << "Автомобили с цветом '" << color << "' не найдены.\n";
+    if (!found) {  // Если автомобили не были найдены
+        cout << "Не найдено машин с таким цветом.\n"; // Выводим сообщение о том, что автомобили не найдены
     }
 }
 
 int main() {
-    setlocale(LC_ALL, "ru");
-    cout << "--- Задание 2: Автомобиль ---\n";
+    setlocale(LC_ALL, "ru"); // Включаем поддержку русского языка
 
-    int numCars;
-     cout << "Введите количество автомобилей: ";
-    cin >> numCars;
+    int n;          // Количество автомобилей
+    cout << "Введите количество машин: "; // Запрашиваем количество автомобилей
+    cin >> n;          // Считываем количество автомобилей
+    cin.ignore();     // Очищаем буфер ввода после ввода числа (важно для корректной работы getline)
 
-    Car cars[numCars];
+    vector<Car> cars(n); // Создаем вектор для хранения автомобилей
 
-    for (int i = 0; i < numCars; ++i)
-    {
-          cout << "\nВведите данные для автомобиля " << i + 1 << ":\n";
-        setCarValuesFromInput(cars[i]);
+    for (int i = 0; i < n; ++i) {  // Итерируемся по каждому автомобилю
+        cout << "\nВвод данных для машины #" << i + 1 << ":\n"; // Выводим номер текущего автомобиля
+        setCarValues(cars[i]);      // Заполняем данные об автомобиле, вызывая функцию setCarValues
     }
 
-    cout << "\nВсе автомобили:\n";
-     for (int i = 0; i < numCars; ++i) {
-        displayCarValues(cars[i]);
-        cout << endl;
-     }
+    cout << "\nВсе машины:\n"; // Выводим заголовок "Все машины"
+    for (const auto& car : cars) { // Итерируемся по вектору автомобилей
+        displayCarValues(car);    // Выводим данные каждого автомобиля
+    }
 
-     string searchColor;
-    cout << "\nВведите цвет для поиска: ";
-     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    getline(cin, searchColor);
-    findCarsByColor(cars, numCars, searchColor);
+    string color;       // Цвет для поиска
+    cout << "\nВведите цвет для поиска: "; // Запрашиваем цвет для поиска
+    getline(cin, color); // Считываем цвет для поиска с клавиатуры
+    findCarsByColor(cars, color); // Вызываем функцию для поиска автомобилей по цвету
 
-    return 0;
+    return 0; // Возвращаем 0 (успешное завершение программы)
 }
