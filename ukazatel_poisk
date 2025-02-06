@@ -1,78 +1,126 @@
-﻿#include <iostream>
-
+#include <iostream> 
 using namespace std;
 
 // Задание 1: Рекурсивный бинарный поиск
+
 int recursiveBinarySearch(const int arr[], int target, int left, int right) {
+    // Базовый случай: если левая граница превышает правую, значит, элемент не найден
     if (left > right) {
-        return -1;
+        return -1; // Возвращаем -1, чтобы указать, что элемент не найден
     }
 
+    // Вычисляем индекс среднего элемента. Используем формулу left + (right - left) / 2,
+    // чтобы избежать переполнения при больших значениях left и right
     int mid = left + (right - left) / 2;
 
+    // Проверяем, равен ли средний элемент искомому
     if (arr[mid] == target) {
-        return mid;
+        return mid; // Если да, возвращаем индекс среднего элемента
     }
+    // Если средний элемент меньше искомого, значит, искомый элемент может находиться
+    // только в правой половине массива. Рекурсивно вызываем бинарный поиск для правой половины.
     else if (arr[mid] < target) {
-        return recursiveBinarySearch(arr, target, mid + 1, right);
+        return recursiveBinarySearch(arr, target, mid + 1, right); // Рекурсивный вызов для правой половины
     }
+    // Если средний элемент больше искомого, значит, искомый элемент может находиться
+    // только в левой половине массива. Рекурсивно вызываем бинарный поиск для левой половины.
     else {
-        return recursiveBinarySearch(arr, target, left, mid - 1);
+        return recursiveBinarySearch(arr, target, left, mid - 1); // Рекурсивный вызов для левой половины
     }
 }
-
 // Задание 2: Рекурсивный сдвиг массива вправо
+
 void recursiveRightShift(int** matrix, int rows, int cols, int shifts, int row = 0) {
+    // Базовый случай 1: Если мы достигли конца массива (обработали все строки)
     if (row == rows) {
-        return;
+        return; // Завершаем рекурсию
     }
 
+    // Обрабатываем сдвиги для текущей строки
     if (shifts > 0) {
+        // Выполняем сдвиг на одну позицию вправо для текущей строки
+
+        // Сохраняем последний элемент строки во временную переменную
         int temp = matrix[row][cols - 1];
+
+        //  Сдвигаем элементы строки на одну позицию вправо (начиная с конца)
         for (int col = cols - 1; col > 0; --col) {
-            matrix[row][col] = matrix[row][col - 1];
+            matrix[row][col] = matrix[row][col - 1]; // Переносим элементы вправо
         }
+
+        //   Помещаем сохраненный последний элемент на первое место
         matrix[row][0] = temp;
+
+        // Рекурсивный вызов: уменьшаем количество сдвигов и остаемся в той же строке
         recursiveRightShift(matrix, rows, cols, shifts - 1, row);
     }
     else {
-        recursiveRightShift(matrix, rows, cols, shifts, row + 1);
+        //  Если сдвиги для текущей строки выполнены или их не нужно делать
+        // Переходим к следующей строке и начинаем сдвиги сначала (если требуется)
+        recursiveRightShift(matrix, rows, cols, shifts, row + 1); // Рекурсивный вызов для следующей строки
     }
 }
 
 // Задание 3: Рекурсивный сдвиг массива влево
 void recursiveLeftShift(int** matrix, int rows, int cols, int shifts, int row = 0) {
+    // Базовый случай 1: Если мы достигли конца массива (обработали все строки)
     if (row == rows) {
-        return;
+        return; // Завершаем рекурсию
     }
+
+    // Обрабатываем сдвиги для текущей строки
     if (shifts > 0) {
+        // Выполняем сдвиг на одну позицию влево для текущей строки
+
+        // Сохраняем первый элемент строки во временную переменную
         int temp = matrix[row][0];
+
+        // Сдвигаем элементы строки на одну позицию влево (начиная с начала)
         for (int col = 0; col < cols - 1; ++col) {
-            matrix[row][col] = matrix[row][col + 1];
+            matrix[row][col] = matrix[row][col + 1]; // Переносим элементы влево
         }
+
+        //  Помещаем сохраненный первый элемент на последнее место
         matrix[row][cols - 1] = temp;
+
+        // Рекурсивный вызов: уменьшаем количество сдвигов и остаемся в той же строке
         recursiveLeftShift(matrix, rows, cols, shifts - 1, row);
     }
     else {
-        recursiveLeftShift(matrix, rows, cols, shifts, row + 1);
+        //  Если сдвиги для текущей строки выполнены или их не нужно делать
+        // Переходим к следующей строке и начинаем сдвиги сначала (если требуется)
+        recursiveLeftShift(matrix, rows, cols, shifts, row + 1); // Рекурсивный вызов для следующей строки
     }
 }
-
 // Задание 4: Рекурсивный сдвиг массива вниз
 void recursiveDownShift(int** matrix, int rows, int cols, int shifts, int col = 0) {
+    // Базовый случай 1: Если мы достигли конца массива (обработали все столбцы)
     if (col == cols) {
-        return;
+        return; // Завершаем рекурсию
     }
+
+    // Обрабатываем сдвиги для текущего столбца
     if (shifts > 0) {
+        // Выполняем сдвиг на одну позицию вниз для текущего столбца
+
+        //  Сохраняем последний элемент столбца во временную переменную
         int temp = matrix[rows - 1][col];
+
+        // Сдвигаем элементы столбца на одну позицию вниз (начиная с конца)
         for (int row = rows - 1; row > 0; --row) {
-            matrix[row][col] = matrix[row - 1][col];
+            matrix[row][col] = matrix[row - 1][col]; // Переносим элементы вниз
         }
+
+        //  Помещаем сохраненный последний элемент на первое место
         matrix[0][col] = temp;
+
+        // Рекурсивный вызов: уменьшаем количество сдвигов и остаемся в том же столбце
         recursiveDownShift(matrix, rows, cols, shifts - 1, col);
     }
     else {
-        recursiveDownShift(matrix, rows, cols, shifts, col + 1);
+        // Базовый случай 2: Если сдвиги для текущего столбца выполнены или их не нужно делать
+        // Переходим к следующему столбцу и начинаем сдвиги сначала (если требуется)
+        recursiveDownShift(matrix, rows, cols, shifts, col + 1); // Рекурсивный вызов для следующего столбца
     }
 }
 
@@ -80,12 +128,11 @@ void recursiveDownShift(int** matrix, int rows, int cols, int shifts, int col = 
 void printMatrix(int** matrix, int rows, int cols) {
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
-            cout << matrix[i][j] << " ";
+            cout << matrix[i][j] << " "; // Выводим элемент и пробел
         }
-        cout << endl;
+        cout << endl; // Переходим на новую строку после вывода всех элементов строки
     }
 }
-
 int main() {
     setlocale(LC_ALL, "ru");
     // Пример использования задания 1 (бинарный поиск)
