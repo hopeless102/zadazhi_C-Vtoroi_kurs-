@@ -1,0 +1,170 @@
+﻿#include <iostream>
+#include "p1.h"
+
+using namespace std;
+
+
+int main() {
+    setlocale(LC_ALL, "ru");
+    Fraction fraction1;
+    Fraction fraction2;
+
+    cout << "Введите первую дробь:\n";
+    fraction1.input();
+
+    cout << "Введите вторую дробь:\n";
+    fraction2.input();
+
+    cout << "Первая дробь: ";
+    fraction1.output();
+    cout << endl;
+    cout << "Вторая дробь: ";
+    fraction2.output();
+    cout << endl;
+
+    // Арифметические операции
+    cout << "Сумма: ";
+    (fraction1 + fraction2).output();
+    cout << endl;
+
+    cout << "Разность: ";
+    (fraction1 - fraction2).output();
+    cout << endl;
+
+    cout << "Произведение: ";
+    (fraction1 * fraction2).output();
+    cout << endl;
+
+    try {
+        cout << "Частное: ";
+        (fraction1 / fraction2).output();
+        cout << endl;
+    }
+    catch (const invalid_argument& e) {
+        cerr << "Ошибка: " << e.what() << endl; // Обработка деления на ноль
+    }
+
+
+
+
+    return 0;
+}
+
+
+
+
+//      ВСЕ ЧТО ВЫШЕ ЭТО cpp ВСЕ ЧТО НИЖЕ ЭТО .h       ВСЕ ЧТО ВЫШЕ ЭТО cpp ВСЕ ЧТО НИЖЕ ЭТО .h       ВСЕ ЧТО ВЫШЕ ЭТО cpp ВСЕ ЧТО НИЖЕ ЭТО .h      ВСЕ ЧТО ВЫШЕ ЭТО cpp ВСЕ ЧТО НИЖЕ ЭТО .h      ВСЕ ЧТО ВЫШЕ ЭТО cpp ВСЕ ЧТО НИЖЕ ЭТО .h
+
+#pragma once 
+#include <iostream> 
+
+using namespace std; 
+
+// Определение класса Fraction (Дробь)
+class Fraction {
+private:
+    int numerator;   // Числитель дроби.
+    int denominator; // Знаменатель дроби.
+
+    // Функция для вычисления наибольшего общего делителя (НОД) двух чисел.
+    
+    int gcd(int a, int b) {
+        a = abs(a); // Берем абсолютное значение a, чтобы НОД всегда был положительным.
+        b = abs(b); // Берем абсолютное значение b.
+        while (b) { // Пока b не равно 0.
+            a %= b; // a становится остатком от деления a на b.
+            swap(a, b); // Меняем местами a и b.  Это часть алгоритма для вычисления НОД.
+        }
+        return a; // Возвращает НОД.
+    }
+
+    // Функция для приведения дроби к несократимому виду.
+    void reduce() {
+        if (denominator == 0) {
+            throw invalid_argument("Деление на ноль!!!"); 
+        }
+
+        if (numerator == 0) {
+            denominator = 1; // Если числитель равен 0, знаменатель становится 1 (дробь равна 0).
+            return; // Завершаем выполнение функции.
+        }
+
+        int common = gcd(numerator, denominator); // Находим НОД числителя и знаменателя.
+        numerator /= common;   // Делим числитель на НОД.
+        denominator /= common; // Делим знаменатель на НОД.
+
+        // Приводим дробь к стандартному виду, чтобы знаменатель всегда был положительным.
+        if (denominator < 0) {
+            numerator = -numerator;   // Если знаменатель отрицательный, меняем знак числителя.
+            denominator = -denominator; // И меняем знак знаменателя.
+        }
+    }
+
+public: 
+
+    // Конструктор по умолчанию.  Инициализирует дробь как 0/1.
+    Fraction() : numerator(0), denominator(1) {}
+
+    // Конструктор, принимающий числитель и знаменатель.
+    Fraction(int num, int den) : numerator(num), denominator(den) {
+        if (denominator == 0) {
+            throw invalid_argument("Деление на ноль!"); // Если знаменатель равен 0, выбрасываем исключение.
+        }
+        reduce(); // Упрощаем дробь после создания.
+    }
+
+    // Метод для ввода дроби с клавиатуры.
+    void input() {
+        cout << "Введите числитель: "; 
+        cin >> numerator;
+        do {
+            cout << "Введите знаменатель (не ноль): "; 
+            cin >> denominator; 
+            if (denominator == 0) {
+                cout << "Знаменатель не может быть равен нулю. Пожалуйста, введите другое значение.\n"; // Выводим сообщение об ошибке, если знаменатель равен 0.
+            }
+        } while (denominator == 0); // Повторяем ввод, пока не будет введен ненулевой знаменатель.
+        reduce(); // Упрощаем дробь после ввода.
+    }
+
+    // Метод для вывода дроби на экран.
+    void output() const {
+        if (denominator == 1) {
+            cout << numerator; // Если знаменатель равен 1, выводим только числитель (целое число).
+        }
+        else {
+            cout << numerator << "/" << denominator; // Иначе выводим числитель и знаменатель, разделенные символом "/".
+        }
+    }
+
+    // Перегрузка оператора + для сложения двух дробей.
+    Fraction operator+(const Fraction& other) const {
+        int newNumerator = numerator * other.denominator + other.numerator * denominator; // Вычисляем новый числитель.
+        int newDenominator = denominator * other.denominator; // Вычисляем новый знаменатель.
+        return Fraction(newNumerator, newDenominator); // Возвращаем новую дробь, представляющую сумму.
+    }
+
+    // Перегрузка оператора - для вычитания двух дробей.
+    Fraction operator-(const Fraction& other) const {
+        int newNumerator = numerator * other.denominator - other.numerator * denominator; // Вычисляем новый числитель.
+        int newDenominator = denominator * other.denominator; // Вычисляем новый знаменатель.
+        return Fraction(newNumerator, newDenominator); // Возвращаем новую дробь, представляющую разность.
+    }
+
+    // Перегрузка оператора * для умножения двух дробей.
+    Fraction operator*(const Fraction& other) const {
+        int newNumerator = numerator * other.numerator;   // Вычисляем новый числитель.
+        int newDenominator = denominator * other.denominator; // Вычисляем новый знаменатель.
+        return Fraction(newNumerator, newDenominator); // Возвращаем новую дробь, представляющую произведение.
+    }
+
+    // Перегрузка оператора / для деления двух дробей.
+    Fraction operator/(const Fraction& other) const {
+        if (other.numerator == 0) {
+            throw invalid_argument("Деление на ноль!"); // Если числитель делителя равен 0, выбрасываем исключение.
+        }
+        int newNumerator = numerator * other.denominator; // Вычисляем новый числитель.
+        int newDenominator = denominator * other.numerator; // Вычисляем новый знаменатель.
+        return Fraction(newNumerator, newDenominator); // Возвращаем новую дробь, представляющую частное.
+    }
+};
