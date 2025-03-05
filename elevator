@@ -56,3 +56,14 @@ public:
         }
     }
 };
+
+
+
+
+
+
+
+//ВСЕ ЧТО ВЫШЕ НАХОДИТСЯ В elevator.h ВСЕ ЧТО НИЖЕ НАХОДИТСЯ В    Cpp
+
+#include <iostream>
+#include "elevator.h"
