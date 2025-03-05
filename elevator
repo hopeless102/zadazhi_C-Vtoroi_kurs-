@@ -1,0 +1,58 @@
+#pragma once    
+#include <iostream> 
+
+using namespace std; 
+
+// Определение класса Elevator
+class Elevator
+{
+private: 
+    int lowerFloor;  
+    int upperFloor;
+    int currentFloor; 
+    bool isRunning;  
+
+public: 
+
+    // Конструктор класса Elevator.  Он инициализирует состояние объекта Elevator.
+    Elevator(int lower, int upper) : lowerFloor(lower), upperFloor(upper), currentFloor(lower), isRunning(false) {}
+    
+ 
+    void turnOn() {
+        isRunning = true;
+        cout << "лифт запущен." << endl; 
+    }
+
+
+    void turnOff() {
+        isRunning = false; 
+        cout << "лифт отключен." << endl; 
+    }
+
+    // Метод для проверки, включен ли лифт.
+    bool isElevatorRunning() const {
+        return isRunning; // Возвращает текущее значение флага isRunning.  `const` указывает, что метод не изменяет состояние объекта.
+    }
+
+
+    // Метод для получения текущего этажа.
+    int getCurrentFloor() const {
+        return currentFloor; // Возвращает текущий этаж. `const` указывает, что метод не изменяет состояние объекта.
+    }
+
+
+    // Метод для вызова лифта на определенный этаж.
+    void callElevator(int floor) {
+        if (floor < lowerFloor || floor > upperFloor) {
+            cout << "вызвать лифт" << endl; // Если запрошенный этаж находится вне допустимого диапазона, выводит сообщение об ошибке.
+            return; 
+        }
+        if (isRunning) { // Проверяет, включен ли лифт.
+            currentFloor = floor; // Если лифт включен, устанавливает текущий этаж в запрошенный этаж.
+            cout << "лифт прибыл на этаж: " << currentFloor << endl; // Выводит сообщение о том, что лифт прибыл на запрошенный этаж.
+        }
+        else { // Если лифт выключен.
+            cout << "лифт не работает." << endl; 
+        }
+    }
+};
