@@ -1,0 +1,60 @@
+class Color:
+    def __init__(self, red, green, blue):
+        Args:
+            red (int): Красный компонент (0-255)
+            green (int): Зеленый компонент (0-255)
+            blue (int): Синий компонент (0-255)  
+        if not all(0 <= component <= 255 for component in [red, green, blue]):
+            raise ValueError("Компоненты цвета должны быть между 0 и 255")
+        self.red = red
+        self.green = green
+        self.blue = blue
+
+    def __str__(self):
+       
+        return f"RGB({self.red}, {self.green}, {self.blue})"
+
+    def mix(self, other_color):
+       
+        Args:
+            other_color (Color)
+        Returns:
+            Color:
+  
+        new_red = (self.red + other_color.red) 
+        new_green = (self.green + other_color.green) 
+        new_blue = (self.blue + other_color.blue) 
+        return Color(new_red, new_green, new_blue)
+
+# 1. Инкапсуляция: 
+
+# 2. Наследование: 
+class TransparentColor(Color):
+  def __init__(self, red, green, blue, alpha):
+    super().__init__(red, green, blue)
+    self.alpha = alpha
+
+  def __str__(self):
+    return f"RGBA({self.red}, {self.green}, {self.blue}, {self.alpha})"
+
+# 3. Полиморфизм: 
+def display_color_info(color):
+    Args:
+        color (Color): 
+    print(f"Информация о цвете: {color}")
+
+
+# 4. Абстракция: 
+red_color = Color(255, 0, 0)
+blue_color = Color(0, 0, 255)
+mixed_color = red_color.mix(blue_color)
+
+print(f"Красный цвет: {red_color}")
+print(f"Синий цвет: {blue_color}")
+print(f"Смешанный цвет: {mixed_color}")
+
+transparent_color = TransparentColor(100, 50, 200, 0.5)
+print(f"Прозрачный цвет: {transparent_color}")
+
+display_color_info(red_color)
+display_color_info(transparent_color) 
