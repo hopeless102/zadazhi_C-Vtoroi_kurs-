@@ -1,0 +1,70 @@
+import time
+class Clock:
+    def __init__(self):
+        self.update_time()
+
+    def update_time(self):
+        self.current_time = time.strftime("%H:%M:%S")  # Формат: ЧЧ:ММ:СС
+
+    def display_time(self):
+        print(f"Текущее время: {self.current_time}")
+
+    def tick(self):
+        time.sleep(1)  # Пауза в 1 секунду
+        self.update_time()
+
+# -------------------- Примеры принципов ООП --------------------
+
+# 1. Инкапсуляция:  
+
+# 2. Наследование: 
+class AlarmClock(Clock):
+     def __init__(self, alarm_time):
+
+        Args:
+            alarm_time (str):
+        super().__init__() 
+        self.alarm_time = alarm_time
+        self.alarm_on = False
+
+    def set_alarm(self, alarm_time):
+       
+        Args:
+            alarm_time (str): 
+        self.alarm_time = alarm_time
+        self.alarm_on = True
+        print(f"Будильник установлен на {self.alarm_time}")
+
+    def disable_alarm(self):
+        self.alarm_on = False
+        print("Будильник выключен.")
+
+    def tick(self):
+        super().tick() 
+        if self.alarm_on and self.current_time[:5] == self.alarm_time:  
+            print("!!! ВРЕМЯ БУДИЛЬНИКА !!!")
+            self.alarm_on = False 
+
+# 3. Полиморфизм:  
+
+def display_clock_info(clock):
+  
+    Args:
+        clock (Clock): 
+    clock.display_time()  # Вызывает метод display_time, который работает как для Clock, так и для AlarmClock
+
+
+# 4. Абстракция: 
+
+my_clock = Clock()
+my_clock.display_time()
+alarm_clock = AlarmClock("07:00")  
+alarm_clock.set_alarm("07:30")
+display_clock_info(alarm_clock)
+
+for _ in range(5):
+    alarm_clock.tick()
+    display_clock_info(alarm_clock) 
+
+
+alarm_clock.disable_alarm()
