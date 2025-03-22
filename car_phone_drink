@@ -1,0 +1,59 @@
+# Определение класса Car (Автомобиль)
+class Car:
+    # Метод __init__ - это конструктор класса.  Он вызывается при создании нового объекта Car.
+    # self - это ссылка на сам объект, который создается.  
+    # make - марка автомобиля (например, "Porshe")
+    # model - модель автомобиля (например, "911 GT3 S")
+    # year - год выпуска автомобиля (например, 2024)
+    def __init__(self, make, model, year):
+        # self.make - атрибут объекта Car, хранящий марку автомобиля.  Он привязывается к конкретному объекту класса.
+        # make - аргумент, переданный в конструктор. присваиваем значение аргумента атрибуту self.make.
+        self.make = make
+        # self.model - атрибут объекта Car, хранящий модель автомобиля
+        self.model = model
+        # self.year - атрибут объекта Car, хранящий год выпуска автомобиля
+        self.year = year
+
+# Определение класса Smartphone (Смартфон)
+class Smartphone:
+    # Конструктор класса Smartphone.  Принимает параметры:
+    # brand - бренд смартфона (например, "Samsung")
+    # model - модель смартфона (например, "Galaxy S24")
+    # os - операционная система смартфона (например, "Android")
+    def __init__(self, brand, model, os):
+        # self.brand - атрибут объекта Smartphone, хранящий бренд
+        self.brand = brand
+        # self.model - атрибут объекта Smartphone, хранящий модель
+        self.model = model
+        # self.os - атрибут объекта Smartphone, хранящий операционную систему
+        self.os = os
+
+# Определение класса EnergyDrink (Энергетический напиток)
+class EnergyDrink:
+    # Конструктор класса EnergyDrink. Принимает параметры:
+    # name - название напитка (например, "Monster energy")
+    # volume - объем напитка в мл (например, 250)
+    # caffeine - содержание кофеина в мг (например, 80)
+    def __init__(self, name, volume, caffeine):
+        # self.name - атрибут объекта EnergyDrink, хранящий название напитка
+        self.name = name
+        # self.volume - атрибут объекта EnergyDrink, хранящий объем
+        self.volume = volume
+        # self.caffeine - атрибут объекта EnergyDrink, хранящий содержание кофеина
+        self.caffeine = caffeine
+
+# Создание экземпляра (объекта) класса Smartphone
+my_phone = Smartphone("Samsung", "Galaxy S24", "Android")
+# Вывод информации о смартфоне с использованием f-строки (formatted string literal)
+# f-строки позволяют вставлять значения переменных непосредственно в строку.
+print(f"My phone is a {my_phone.brand} {my_phone.model} running {my_phone.os}")
+
+# Создание экземпляра (объекта) класса Car
+my_car = Car("Porshe", "911 GT3 RS", 2024)
+# Вывод информации об автомобиле с использованием f-строки
+print(f"My car is a {my_car.year} {my_car.make} {my_car.model}")
+
+# Создание экземпляра (объекта) класса EnergyDrink
+my_drink = EnergyDrink("Monster energy", 250, 80)
+# Вывод информации об энергетическом напитке с использованием f-строки
+print(f"I'm drinking {my_drink.name} with {my_drink.caffeine}mg of caffeine in {my_drink.volume}ml")
