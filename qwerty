@@ -1,0 +1,102 @@
+﻿#include <iostream>
+#include <cmath>  
+#include <sstream>
+
+using namespace std;
+
+class Complex {
+private:
+    double real;
+    double imaginary;
+
+public:
+    // Конструкторы
+    Complex() : real(0.0), imaginary(0.0) {}
+    Complex(double real) : real(real), imaginary(0.0) {}
+    Complex(double real, double imaginary) : real(real), imaginary(imaginary) {}
+    Complex(const Complex& other) : real(other.real), imaginary(other.imaginary) {} // Конструктор копирования
+
+    // Геттеры
+    double getReal() const { return real; }
+    double getImaginary() const { return imaginary; }
+
+    // Сеттеры
+    void setReal(double real) { this->real = real; }
+    void setImaginary(double imaginary) { this->imaginary = imaginary; }
+
+    // Перегрузка оператора << 
+    friend ostream& operator<<(ostream& os, const Complex& c) {
+        os << "(" << c.real << (c.imaginary >= 0 ? "+" : "") << c.imaginary << "i)";
+        return os;
+    }
+
+    // Перегрузка оператора >> 
+    friend istream& operator>>(istream& is, Complex& c) {
+        char dummy; 
+        is >> dummy >> c.real >> dummy >> c.imaginary >> dummy; 
+        return is;
+    }
+
+    // Перегрузка оператора + 
+    Complex operator+(const Complex& other) const {
+        return Complex(real + other.real, imaginary + other.imaginary);
+    }
+
+    // Перегрузка оператора - 
+    Complex operator-(const Complex& other) const {
+        return Complex(real - other.real, imaginary - other.imaginary);
+    }
+
+    // Перегрузка оператора == 
+    bool operator==(const Complex& other) const {
+        return (abs(real - other.real) < 1e-9) && (abs(imaginary - other.imaginary) < 1e-9);  
+    }
+
+    // Перегрузка оператора != 
+    bool operator!=(const Complex& other) const {
+        return !(*this == other);
+    }
+
+    // Перегрузка оператора () 
+    double operator()() const {
+        return sqrt(real * real + imaginary * imaginary);
+    }
+};
+
+
+int main() {
+    Complex c1(2.0, 3.0);
+    Complex c2(1.0, -1.0);
+    Complex c3;
+
+    cout << "c1 = " << c1 << endl;
+    cout << "c2 = " << c2 << endl;
+
+    c3 = c1 + c2;
+    cout << "c1 + c2 = " << c3 << endl;
+
+    c3 = c1 - c2;
+    cout << "c1 - c2 = " << c3 << endl;
+
+    cout << "|c1| = " << c1() << endl;
+
+    if (c1 == Complex(2.0, 3.0)) {
+        cout << "c1 == (2+3i)" << endl;
+    }
+
+    if (c1 != c2) {
+        cout << "c1 != c2" << endl;
+    }
+
+    cout << "Enter a complex number (real,imaginary): ";
+    cin >> c3;
+    cout << "You entered: " << c3 << endl;
+
+    Complex c4(2.0, 0.0);
+    Complex c5(2.0, 0.00000000001);
+    if (c4 == c5) {
+        cout << "c4 == c5 (с учетом погрешности)" << endl;
+    }
+
+    return 0;
+}
