@@ -1,0 +1,130 @@
+﻿#include <iostream>
+#include <math.h>
+
+using namespace std;
+
+const int PI = 3.14;
+
+class GeoFig {
+public:
+    //Конструктор
+    virtual double getArea() const {
+        return 0.0; 
+    }
+    //Деконструктор
+    virtual ~GeoFig() {}
+};
+
+
+
+// Класс "Круг"
+class Krug : public GeoFig {
+private:
+    double radius;
+
+public:
+    Krug(double r) : radius(r) {}
+    //геттеры
+
+    double getArea() const override {
+        return PI * radius * radius;
+    }
+
+    double getRadius() const {
+        return radius;
+    }
+    //сеттеры
+    void setRadius(double r) {
+        if (r > 0) {
+            radius = r;
+        }
+        else {
+            cout << "Ошибка: Радиус должен быть положительным." << endl;
+        }
+    }
+    //Деконструктор
+    ~Krug(){}
+};
+
+// Класс "Прямоугольник"
+class Pryam : public GeoFig {
+private:
+    double width;
+    double height;
+
+public:
+    // Конструктор
+    Pryam(double w, double h) : width(w), height(h) {}
+
+    double getArea() const override {
+        return width * height;
+    }
+    //геттеры
+    double getWidth() const { return width; }
+    double getHeight() const { return height; }
+    //сеттеры
+    void setWidth(double w) { 
+        if (w > 0) width = w; 
+        else cout << "Ошибка"; 
+    }
+    void setHeight(double h) { 
+        if (h > 0) height = h; 
+        else cout << "Ошибка"; 
+    }
+    //Деконструктор
+    ~Pryam(){}
+};
+
+// Класс "Треугольник"
+class Triug : public GeoFig {
+private:
+    double side1;
+    double side2;
+    double side3;
+
+public:
+    // Конструктор
+    Triug(double s1, double s2, double s3) : side1(s1), side2(s2), side3(s3) {}
+
+    double getArea() const override {
+        double s = (side1 + side2 + side3) / 2.0; // Полупериметр
+        return sqrt(s * (s - side1) * (s - side2) * (s - side3));
+    }
+
+    double getSide1() const { return side1; }
+    double getSide2() const { return side2; }
+    double getSide3() const { return side3; }
+
+    void setSide1(double s) { 
+        if (s > 0) side1 = s;
+        else cout << "Ошибка";
+    }
+    void setSide2(double s) { 
+        if (s > 0) side2 = s;
+        else cout << "Ошибка";
+    }
+    void setSide3(double s) {
+        if (s > 0) side3 = s;
+        else cout << "Ошибка";
+    }
+    //Деконструктор
+    ~Triug(){}
+};
+
+int main() {
+    setlocale(LC_ALL, "ru");
+    Krug circle(5.0);
+    Pryam rectangle(4.0, 6.0);
+    Triug triangle(3.0, 4.0, 5.0);                                                                                                                                                                                                                                      
+
+    // Полиморфизм
+    GeoFig* shapes[3];
+    shapes[0] = &circle;
+    shapes[1] = &rectangle;
+    shapes[2] = &triangle;
+
+    for (int i = 0; i < 3; ++i) {
+        cout << "Площадь фигуры " << i + 1 << ": " << shapes[i]->getArea() << endl;
+    }
+    return 0;
+}
