@@ -1,0 +1,137 @@
+
+#include "Aiplane.h"
+
+
+
+#pragma once
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Airplane {
+private:
+    string type; 
+    int maxPass; 
+    int currentPass; 
+
+public:
+    Airplane(string type = "Unknown", int maxPassengers = 100) : type(type), maxPass(maxPassengers), currentPass(0) {
+        if (maxPassengers < 0) {
+            this->maxPass = 0;
+        }
+        if (currentPass < 0) {
+          this->currentPass = 0;
+        }
+
+    }
+
+    string getType() const { return type; }
+    int getMaxPassengers() const { return maxPass; }
+    int getCurrentPassengers() const {return currentPass; }
+
+    void setType(string type) { this->type = type; }
+    void setMaxPassengers(int maxPassengers) {
+        if (maxPassengers > 0) {
+            this->maxPass = maxPassengers;
+        }
+    }
+
+    // Ïåðåãðóçêà îïåðàòîðà == 
+    bool operator==(const Airplane& other) const {
+        return type == other.type;
+    }
+
+    // Ïåðåãðóçêà ïðåôèêñíîãî îïåðàòîðà ++ 
+    Airplane& operator++() {
+        if (currentPass < maxPass) {
+            currentPass++;
+        }
+        return *this;
+    }
+
+    // Ïåðåãðóçêà ïðåôèêñíîãî îïåðàòîðà -- 
+    Airplane& operator--() {
+        if (currentPass > 0) {
+            currentPass--;
+        }
+        return *this;
+    }
+
+    // Ïåðåãðóçêà îïåðàòîðà > 
+    bool operator>(const Airplane& other) const {
+        return maxPass > other.maxPass;
+    }
+
+    void print() const {
+      cout << "Òèï ñàìîëåòà:\n" << type << "\nÌàêñ. ïàññàæèðîâ:\n" << maxPass << "\nÒåêóùèå ïàññàæèðû:\n" << currentPass << endl;
+    }
+};
+
+
+#include "Circle.h"\
+
+
+#include <iostream>
+#include <cmath> // Äëÿ M_PI (÷èñëî Ïè)
+
+using namespace std;
+
+class Circle {
+private:
+    double radius;
+    const double PI = 3.14;
+
+public:
+    Circle(double radius = 1.0) : radius(radius) {}
+
+    double getRadius() const { return radius; }
+
+    void setRadius(double radius) {
+        if (radius > 0) {
+            this->radius = radius;
+        }
+        else {
+            cout << "\nÎøèáêà:\nÐàäèóñ äîëæåí áûòü ïîëîæèòåëüíûì." << endl << endl;
+        }
+    }
+
+    // Ïåðåãðóçêà îïåðàòîðà == 
+    bool operator==(const Circle& other) const {
+        return radius == other.radius;
+    }
+
+    // Ïåðåãðóçêà îïåðàòîðà > 
+    bool operator>(const Circle& other) const {
+        return 2 * PI * radius > 2 * PI * other.radius; 
+    }
+
+    // Ïåðåãðóçêà îïåðàòîðà += 
+    Circle& operator+=(double value) {
+        if (radius + value > 0) {
+            radius += value;
+            return *this;
+        }
+        else {
+            cout << "\nÎøèáêà:\nÐàäèóñ ïîñëå óâåëè÷åíèÿ äîëæåí áûòü ïîëîæèòåëüíûì." << endl << endl;
+            return *this; 
+        }
+    }
+
+    // Ïåðåãðóçêà îïåðàòîðà -= 
+    Circle& operator-=(double value) {
+        if (radius - value > 0) {
+            radius -= value;
+            return *this;
+        }
+        else {
+            cout << "Îøèáêà:\nÐàäèóñ ïîñëå óìåíüøåíèÿ äîëæåí áûòü ïîëîæèòåëüíûì." << endl << endl;
+            return *this; 
+        }
+    }
+
+    // Ìåòîä äëÿ âûâîäà 
+    void print() const {
+        cout << "\nÐàäèóñ:" << radius << "\nÄëèíà îêðóæíîñòè: " << 2 * PI * radius << endl<<endl;
+    }
+};
